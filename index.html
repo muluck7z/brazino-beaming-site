@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Brazino Beaming</title>
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-Czjk7MsV.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-DAFY9HMl.css">
+    <style>
+      /* Oculta o conteúdo inicial para evitar o flash da tela que será removida */
+      #root:empty { display: none; }
+      
+
+    </style>
+    <script>
+      // Redireciona da home para tutoriais imediatamente
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        window.history.replaceState(null, '', '/tutoriais');
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+
+  <script>
+    (function () {
+      // Remove a seção "Como a conta chega" dinamicamente
+      const removeRidiculousStuff = () => {
+        const elements = document.querySelectorAll('p, span, h3, h4');
+        elements.forEach(el => {
+          if (el.textContent.includes('Como a conta chega')) {
+            // Remove o container pai que geralmente contém o título e a imagem
+            const container = el.closest('.space-y-6') || el.parentElement;
+            if (container) container.style.display = 'none';
+          }
+        });
+        
+        // Remove imagens com alt relacionado
+        const images = document.querySelectorAll('img[alt*="conta chega"]');
+        images.forEach(img => {
+          const container = img.closest('.space-y-6') || img.parentElement;
+          if (container) container.style.display = 'none';
+        });
+      };
+
+      // Observa mudanças no DOM para remover os elementos assim que o React os renderizar
+      const observer = new MutationObserver(removeRidiculousStuff);
+      observer.observe(document.body, { childList: true, subtree: true });
+      removeRidiculousStuff();
+
+
+
+      var clickSound = new Audio('/assets/button-click.mp3');
+      clickSound.preload = 'auto';
+
+      document.addEventListener('click', function (e) {
+        var target = e.target;
+        // Sobe na árvore DOM para encontrar elemento clicável
+        while (target && target !== document) {
+          var tag = target.tagName ? target.tagName.toLowerCase() : '';
+          var role = target.getAttribute ? target.getAttribute('role') : null;
+          var isClickable =
+            tag === 'button' ||
+            tag === 'a' ||
+            tag === 'input' ||
+            tag === 'select' ||
+            tag === 'label' ||
+            role === 'button' ||
+            role === 'link' ||
+            role === 'tab' ||
+            role === 'menuitem' ||
+            (target.onclick != null) ||
+            (target.style && target.style.cursor === 'pointer') ||
+            (target.className && typeof target.className === 'string' && (
+              target.className.indexOf('btn') !== -1 ||
+              target.className.indexOf('button') !== -1 ||
+              target.className.indexOf('cursor-pointer') !== -1
+            ));
+
+          if (isClickable) {
+            var sound = clickSound.cloneNode();
+            sound.volume = 0.6;
+            sound.play().catch(function () {});
+            break;
+          }
+          target = target.parentNode;
+        }
+      }, true);
+    })();
+  </script>
+  </body>
+</html>
