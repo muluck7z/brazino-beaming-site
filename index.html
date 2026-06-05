@@ -1,97 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>Brazino Beaming</title>
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" crossorigin src="/assets/index-Czjk7MsV.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DAFY9HMl.css">
-    <style>
-      /* Oculta o conteúdo inicial para evitar o flash da tela que será removida */
-      #root:empty { display: none; }
-      
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+      <title>Brazino Beaming</title>
+      <link rel="icon" type="image/png" href="/favicon.png" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+      <script type="module" crossorigin src="/assets/index-Czjk7MsV.js"></script>
+      <link rel="stylesheet" crossorigin href="/assets/index-DAFY9HMl.css">
+      <style>
+        /* ============================================================
+           BRAZINO BEAM — ASTRAL BEAMS VISUAL OVERRIDE
+           Fundo preto puro + glow verde atmosférico
+        ============================================================ */
 
-    </style>
-    <script>
-      // Redireciona da home para tutoriais imediatamente
-      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-        window.history.replaceState(null, '', '/tutoriais');
-      }
-    </script>
-  </head>
-  <body>
-    <div id="root"></div>
-    
-
-  <script>
-    (function () {
-      // Remove a seção "Como a conta chega" dinamicamente
-      const removeRidiculousStuff = () => {
-        const elements = document.querySelectorAll('p, span, h3, h4');
-        elements.forEach(el => {
-          if (el.textContent.includes('Como a conta chega')) {
-            // Remove o container pai que geralmente contém o título e a imagem
-            const container = el.closest('.space-y-6') || el.parentElement;
-            if (container) container.style.display = 'none';
-          }
-        });
-        
-        // Remove imagens com alt relacionado
-        const images = document.querySelectorAll('img[alt*="conta chega"]');
-        images.forEach(img => {
-          const container = img.closest('.space-y-6') || img.parentElement;
-          if (container) container.style.display = 'none';
-        });
-      };
-
-      // Observa mudanças no DOM para remover os elementos assim que o React os renderizar
-      const observer = new MutationObserver(removeRidiculousStuff);
-      observer.observe(document.body, { childList: true, subtree: true });
-      removeRidiculousStuff();
-
-
-
-      var clickSound = new Audio('/assets/button-click.mp3');
-      clickSound.preload = 'auto';
-
-      document.addEventListener('click', function (e) {
-        var target = e.target;
-        // Sobe na árvore DOM para encontrar elemento clicável
-        while (target && target !== document) {
-          var tag = target.tagName ? target.tagName.toLowerCase() : '';
-          var role = target.getAttribute ? target.getAttribute('role') : null;
-          var isClickable =
-            tag === 'button' ||
-            tag === 'a' ||
-            tag === 'input' ||
-            tag === 'select' ||
-            tag === 'label' ||
-            role === 'button' ||
-            role === 'link' ||
-            role === 'tab' ||
-            role === 'menuitem' ||
-            (target.onclick != null) ||
-            (target.style && target.style.cursor === 'pointer') ||
-            (target.className && typeof target.className === 'string' && (
-              target.className.indexOf('btn') !== -1 ||
-              target.className.indexOf('button') !== -1 ||
-              target.className.indexOf('cursor-pointer') !== -1
-            ));
-
-          if (isClickable) {
-            var sound = clickSound.cloneNode();
-            sound.volume = 0.6;
-            sound.play().catch(function () {});
-            break;
-          }
-          target = target.parentNode;
+        /* Override das CSS variables do Tailwind para tema escuro puro */
+        :root {
+          --background:       0 0% 0%;
+          --foreground:       120 5% 93%;
+          --card:             0 0% 4%;
+          --card-foreground:  120 5% 92%;
+          --card-border:      133 25% 9%;
+          --sidebar:          0 0% 2%;
+          --sidebar-foreground: 120 5% 88%;
+          --sidebar-border:   133 20% 10%;
+          --popover:          0 0% 4%;
+          --popover-foreground: 120 5% 92%;
+          --popover-border:   133 20% 10%;
+          --border:           133 20% 10%;
+          --input:            133 20% 10%;
+          --secondary:        0 0% 6%;
+          --secondary-foreground: 120 5% 88%;
+          --muted:            0 0% 8%;
+          --muted-foreground: 0 0% 45%;
+          --shadow-2xs: 0px 2px 4px #00000080;
+          --shadow-xs:  0px 2px 4px #00000080;
+          --shadow-sm:  0px 2px 6px #00000080, 0px 1px 2px #00000066;
+          --shadow:     0px 4px 8px #00000080, 0px 2px 4px #00000066;
+          --shadow-md:  0px 6px 12px #00000080, 0px 2px 4px #00000066;
+          --shadow-lg:  0px 8px 20px #00000080, 0px 4px 6px #00000066;
         }
-      }, true);
-    })();
-  </script>
-  </body>
-</html>
+
+        /* Body — preto puro com overflow controlado */
+        html, body {
+          background-color: #000000 !important;
+          overflow-x: hidden;
+        }
+
+        /* Glow atmosférico verde (inspirado no Astral Beams mas com identidade Brazino) */
+        #brazino-glow {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          background:
+            radial-gradient(ellipse 55% 45% at 0% 40%,   rgba(34, 197, 94, 0.08) 0%, transparent 70%),
+            radial-gradient(ellipse 55% 45% at 100% 60%,  rgba(34, 197, 94, 0.06) 0%, transparent 70%),
+            radial-gradient(ellipse 70% 40% at 50% 0%,    rgba(22, 163, 74, 0.04) 0%, transparent 65%),
+            radial-gradient(ellipse 50% 30% at 50% 100%,  rgba(22, 163, 74, 0.03) 0%, transparent 60%);
+        }
+
+        /* Textura de ruído sutil (como no Astral Beams) */
+        #brazino-noise {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          z-index: 0;
+          opacity: 0.025;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+          background-repeat: repeat;
+          background-size: 256px 256px;
+        }
+
+        /* React root acima dos overlays */
+        #root {
+          position: relative;
+          z-index: 1;
+        }
+
+        /* Oculta o conteúdo inicial para evitar flash */
+        #root:empty { display: none; }
+
+        /* ── Navbar / Header ── */
+        /* Efeito glassy como Astral Beams */
+        nav, header,
+        [class*="sticky"][class*="top"],
+        [class*="fixed"][class*="top"] {
+          backdrop-filter: blur(16px) !important;
+          -webkit-backdrop-filter: blur(16px) !important;
+          background-color: rgba(0, 0, 0, 0.75) !important;
+          border-bottom-color: rgba(34, 197, 94, 0.12) !important;
+        }
+
+        /* ── Cards — vidro escuro com borda sutil ── */
+        [class*="rounded"][class*="border"],
+        [class*="card"] {
+          border-color: rgba(34, 197, 94, 0.1) !important;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        [class*="rounded"][class*="border"]:hover,
+        [class*="card"]:hover {
+          border-color: rgba(34, 197, 94, 0.2) !important;
+          box-shadow: 0 0 20px rgba(34, 197, 94, 0.06) !important;
+        }
+
+        /* ── Scrollbar personalizada ── */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: rgba(34, 197, 94, 0.25); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(34, 197, 94, 0.45); }
+
+        /* ── Animações de entrada suaves ── */
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(16px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        #root > * {
+          animation: fadeInUp 0.35s ease both;
+        }
+
+        /* ── Separadores / dividers ── */
+        hr, [class*="separator"] {
+          border-color: rgba(34, 197, 94, 0.08) !important;
+        }
+
+        /* ── Selection color ── */
+        ::selection {
+          background: rgba(34, 197, 94, 0.25);
+          color: #fff;
+        }
+
+        /* ── Focus ring com cor da marca ── */
+        *:focus-visible {
+          outline-color: rgba(34, 197, 94, 0.5) !important;
+        }
+
+        /* ── Botões primários — sombra de glow verde no hover ── */
+        button:hover,
+        [role="button"]:hover {
+          box-shadow: 0 0 16px rgba(34, 197, 94, 0.15);
+          transition: box-shadow 0.2s ease;
+        }
+      </style>
+      <script>
+        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+          window.history.replaceState(null, '', '/tutoriais');
+        }
+      </script>
+    </head>
+    <body>
+
+      <!-- Glow atmosférico e textura -->
+      <div id="brazino-glow"></div>
+      <div id="brazino-noise"></div>
+
+      <div id="root"></div>
+
+      <script>
+      (function () {
+        const removeRidiculousStuff = () => {
+          const elements = document.querySelectorAll('p, span, h3, h4');
+          elements.forEach(el => {
+            if (el.textContent.includes('Como a conta chega')) {
+              const container = el.closest('.space-y-6') || el.parentElement;
+              if (container) container.style.display = 'none';
+            }
+          });
+          const images = document.querySelectorAll('img[alt*="conta chega"]');
+          images.forEach(img => {
+            const container = img.closest('.space-y-6') || img.parentElement;
+            if (container) container.style.display = 'none';
+          });
+        };
+
+        const observer = new MutationObserver(removeRidiculousStuff);
+        observer.observe(document.body, { childList: true, subtree: true });
+        removeRidiculousStuff();
+
+        var clickSound = new Audio('/assets/button-click.mp3');
+        clickSound.preload = 'auto';
+
+        document.addEventListener('click', function (e) {
+          var target = e.target;
+          while (target && target !== document) {
+            var tag = target.tagName ? target.tagName.toLowerCase() : '';
+            var role = target.getAttribute ? target.getAttribute('role') : null;
+            var isClickable =
+              tag === 'button' ||
+              tag === 'a' ||
+              tag === 'input' ||
+              tag === 'select' ||
+              tag === 'label' ||
+              role === 'button' ||
+              role === 'link' ||
+              role === 'tab' ||
+              role === 'menuitem' ||
+              (target.onclick != null) ||
+              (target.style && target.style.cursor === 'pointer') ||
+              (target.className && typeof target.className === 'string' && (
+                target.className.indexOf('btn') !== -1 ||
+                target.className.indexOf('button') !== -1 ||
+                target.className.indexOf('cursor-pointer') !== -1
+              ));
+            if (isClickable) {
+              var sound = clickSound.cloneNode();
+              sound.volume = 0.6;
+              sound.play().catch(function () {});
+              break;
+            }
+            target = target.parentNode;
+          }
+        }, true);
+      })();
+      </script>
+    </body>
+  </html>
