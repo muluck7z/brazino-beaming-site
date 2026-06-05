@@ -245,6 +245,12 @@
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
     .fade-in{animation:fadeUp .32s ease both}
     svg{flex-shrink:0}
+  
+      .refresher-link{display:inline-flex;align-items:center;gap:.625rem;
+        background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);
+        border-radius:8px;padding:.625rem 1.25rem;font-size:.875rem;font-weight:700;
+        text-decoration:none;transition:all .2s;margin-top:.25rem}
+      .refresher-link:hover{background:rgba(34,197,94,.18)}
   </style>
 </head>
 <body>
@@ -600,61 +606,75 @@ function pageGeradores() {
 
 // ── BYPASSERS ──
 function pageBypassers() {
-  var reqs = [
-    'Conta com mais de 13 anos de idade',
-    'Cookie refrescado (atualizado)',
-    'Verificação de idade ativa',
-    'Autenticação em duas etapas (2FA)',
-    'Autenticador vinculado à conta',
-  ];
-  var reqHtml = reqs.map(function(r) {
-    return '<li>' + ICO.check + '<span>' + r + '</span></li>';
-  }).join('');
+    var reqs = [
+      'Conta com mais de 13 anos de idade',
+      'Cookie refrescado (atualizado)',
+      'Verificação de idade ativa',
+      'Autenticação em duas etapas (2FA)',
+      'Autenticador vinculado à conta',
+    ];
+    var reqHtml = reqs.map(function(r) {
+      return '<li>' + ICO.check + '<span>' + r + '</span></li>';
+    }).join('');
 
-  return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas.') +
-    '<div class="content"><div class="divider"></div>' +
-    '<div class="sec-item fade-in">' +
-      '<p class="reqs-label">Requisitos</p>' +
-      '<ul class="checklist">' + reqHtml + '</ul>' +
-    '</div>' +
-    '<div class="sec-item fade-in">' +
-      secHead(1, 'Bypass') +
-      vidWithDesc('/bypass.mp4', 'Bypasser 01', 'Bypass',
-        'Bypass',
-        'Ferramenta exclusiva Brazino para contornar sistemas de detecção e obter acesso às contas com eficiência.') +
-    '</div>' +
-    '</div>' + footer();
-}
+    var bypassCard =
+      '<div class="refresher-card fade-in">' +
+        '<div class="refresher-icon">' +
+          '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="refresher-body">' +
+          '<span class="refresher-tag">Bypasser 01</span>' +
+          '<div class="refresher-name">Bypass</div>' +
+          '<p class="refresher-desc">Ferramenta para contornar sistemas de detecção e obter acesso às contas com eficiência. Acesse o site abaixo para utilizar.</p>' +
+          '<a href="https://rblxbypasser.com" target="_blank" rel="noopener" class="refresher-link">' +
+            ICO.arr + '<span>Acessar rblxbypasser.com</span>' +
+          '</a>' +
+        '</div>' +
+      '</div>';
+
+    return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas.') +
+      '<div class="content"><div class="divider"></div>' +
+      '<div class="sec-item fade-in">' +
+        '<p class="reqs-label">Requisitos</p>' +
+        '<ul class="checklist">' + reqHtml + '</ul>' +
+      '</div>' +
+      '<div class="sec-item fade-in">' +
+        secHead(1, 'Bypass') +
+        bypassCard +
+      '</div>' +
+      '</div>' + footer();
+  }
 
 // ── REFRESHERS ──
 function pageRefreshers() {
-  var refresherCard =
-    '<div class="refresher-card fade-in">' +
-      '<div class="refresher-icon">' +
-        '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
-          '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>' +
-          '<path d="M3 3v5h5"/>' +
-        '</svg>' +
-      '</div>' +
-      '<div class="refresher-body">' +
-        '<span class="refresher-tag">Refresher 01</span>' +
-        '<div class="refresher-name">Refresher Cookie</div>' +
-        '<p class="refresher-desc">Ferramenta exclusiva Brazino para renovar sessões e manter suas contas sempre ativas. Use a extensão Brazino para atualizar o cookie da conta e garantir acesso contínuo.</p>' +
-        '<a href="/Brazino.zip" download="Brazino.zip" class="ext-dl">' +
-          ICO.dl +
-          '<div class="ext-dl-info"><div class="ext-dl-name">Baixar Extensão Brazino</div><div class="ext-dl-sub">Brazino.zip</div></div>' +
-        '</a>' +
-      '</div>' +
-    '</div>';
+    var refresherCard =
+      '<div class="refresher-card fade-in">' +
+        '<div class="refresher-icon">' +
+          '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
+            '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>' +
+            '<path d="M3 3v5h5"/>' +
+          '</svg>' +
+        '</div>' +
+        '<div class="refresher-body">' +
+          '<span class="refresher-tag">Refresher 01</span>' +
+          '<div class="refresher-name">Refresher Cookie</div>' +
+          '<p class="refresher-desc">Ferramenta para renovar sessões e manter suas contas sempre ativas. Acesse o site abaixo para atualizar o cookie da conta e garantir acesso contínuo.</p>' +
+          '<a href="https://www.logged.tg/tools/refresher" target="_blank" rel="noopener" class="refresher-link">' +
+            ICO.arr + '<span>Acessar logged.tg/tools/refresher</span>' +
+          '</a>' +
+        '</div>' +
+      '</div>';
 
-  return pgHead('refresh', 'REFRESHERS', 'Ferramentas exclusivas Brazino para renovar sessões e manter suas contas sempre ativas.') +
-    '<div class="content"><div class="divider"></div>' +
-    '<div class="sec-item">' +
-      secHead(1, 'Refresher Cookie') +
-      refresherCard +
-    '</div>' +
-    '</div>' + footer();
-}
+    return pgHead('refresh', 'REFRESHERS', 'Ferramentas exclusivas Brazino para renovar sessões e manter suas contas sempre ativas.') +
+      '<div class="content"><div class="divider"></div>' +
+      '<div class="sec-item">' +
+        secHead(1, 'Refresher Cookie') +
+        refresherCard +
+      '</div>' +
+      '</div>' + footer();
+  }
 
 // ── Router ──
 var PAGES = {
