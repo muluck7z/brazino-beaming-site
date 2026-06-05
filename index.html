@@ -219,7 +219,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nb">
-    <a class="logo" onclick="navigate('/')">
+    <a class="logo" onclick="navigate('/tutoriais')">
       <div class="logo-icon">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
@@ -327,46 +327,6 @@ function footer() {
 }
 
 // ── Pages ──
-function pageHome() {
-  var cards = [
-    {r:'/tutoriais', i:'play',    t:'Tutoriais', d:'Guias em vídeo passo a passo sobre Beam e geração de links falsos de Roblox.'},
-    {r:'/metodos',   i:'bolt',    t:'Métodos',   d:'Diferentes abordagens e estratégias para usar o Beam com eficiência.'},
-    {r:'/geradores', i:'wrench',  t:'Geradores', d:'Painéis de controle para criar e gerenciar seus links falsos de Roblox.'},
-    {r:'/bypassers', i:'shield',  t:'Bypassers', d:'Ferramentas para contornar sistemas de detecção e obter acesso às contas.'},
-    {r:'/refreshers',i:'refresh', t:'Refreshers',d:'Renove sessões e mantenha suas contas sempre ativas automaticamente.'},
-  ];
-  var cardHtml = cards.map(function(c) {
-    return '<a class="svc-card" onclick="navigate(\'' + c.r + '\')">' +
-      '<div class="card-chip">' + ICO.star + ' Destaque</div>' +
-      '<div class="card-icon-wrap">' + ICO[c.i] + '</div>' +
-      '<div class="card-ttl">' + c.t + '</div>' +
-      '<div class="card-dsc">' + c.d + '</div></a>';
-  }).join('');
-  return '<div class="hero">' +
-    '<div class="h-glow-1"></div><div class="h-glow-2"></div><div class="h-glow-3"></div>' +
-    '<div class="hero-inner fade-in">' +
-      '<span class="badge">' + ICO.star + ' #1 Beam Tools</span>' +
-      '<h1 class="hero-title">' + ICO.sparkles + ' Brazino Beaming</h1>' +
-      '<p class="hero-subtitle">Brazino Beaming — Ferramentas premium para Beam. Tutoriais, métodos, geradores, bypassers e refreshers para você dominar o jogo.</p>' +
-      '<div class="btn-row">' +
-        '<a class="btn-p" onclick="navigate(\'/tutoriais\')">Ver Tutoriais ' + ICO.arr + '</a>' +
-        '<a class="btn-s" onclick="navigate(\'/geradores\')">Explorar Ferramentas</a>' +
-      '</div>' +
-      '<div class="stats-grid">' +
-        '<div><div class="stat-n">5+</div><div class="stat-l">Ferramentas</div></div>' +
-        '<div><div class="stat-n">24/7</div><div class="stat-l">Suporte</div></div>' +
-      '</div>' +
-    '</div></div>' +
-    '<div class="svc-section"><div class="svc-glow"></div><div class="svc-inner">' +
-      '<div class="svc-header">' +
-        '<span class="badge">Seções</span>' +
-        '<h2 class="svc-title">Nossas Ferramentas</h2>' +
-        '<p class="svc-sub">Explore nossas ferramentas premium criadas com excelência e confiabilidade para todas as suas necessidades.</p>' +
-      '</div>' +
-      '<div class="svc-grid">' + cardHtml + '</div>' +
-    '</div></div>' + footer();
-}
-
 function pageTutoriais() {
   return pgHead('play','TUTORIAIS','Guias em vídeo e passo a passo ensinando tudo sobre o Beam e como gerar links falsos de Roblox.') +
     '<div class="content"><div class="divider"></div>' +
@@ -438,7 +398,6 @@ function pageRefreshers() {
 }
 
 var PAGES = {
-  '/':           pageHome,
   '/tutoriais':  pageTutoriais,
   '/metodos':    pageMetodos,
   '/geradores':  pageGeradores,
@@ -503,7 +462,10 @@ function copyLink(n) {
 
 // ── Init ──
 var initPath = location.pathname;
-if (!PAGES[initPath]) initPath = '/tutoriais';
+if (!PAGES[initPath]) {
+  initPath = '/tutoriais';
+  history.replaceState({}, '', '/tutoriais');
+}
 render(initPath);
 </script>
 </body>
