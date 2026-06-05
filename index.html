@@ -1,209 +1,510 @@
 <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-      <title>Brazino Beaming</title>
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-      <script type="module" crossorigin src="/assets/index-Czjk7MsV.js"></script>
-      <link rel="stylesheet" crossorigin href="/assets/index-DAFY9HMl.css">
-      <style>
-        /* ============================================================
-           BRAZINO BEAM — ASTRAL BEAMS VISUAL OVERRIDE v2
-           Fundo preto puro + glow verde + efeitos premium
-        ============================================================ */
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Brazino Beaming</title>
+  <link rel="icon" href="/favicon.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#000;--fg:#f9fafb;--muted:#6b7280;--green:#22c55e;--green-dim:rgba(34,197,94,.1);--green-border:rgba(34,197,94,.18);--card:#07070a;--border:rgba(255,255,255,.07)}
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
 
-        /* Override CSS variables — vem depois do CSS compilado, ganha no cascade */
-        :root {
-          --background:           0 0% 0%;
-          --foreground:           120 5% 93%;
-          --card:                 0 0% 3%;
-          --card-foreground:      120 5% 92%;
-          --card-border:          133 25% 9%;
-          --sidebar:              0 0% 1%;
-          --sidebar-foreground:   120 5% 88%;
-          --sidebar-border:       133 20% 8%;
-          --popover:              0 0% 3%;
-          --popover-foreground:   120 5% 92%;
-          --popover-border:       133 20% 8%;
-          --border:               133 20% 8%;
-          --input:                133 20% 8%;
-          --secondary:            0 0% 5%;
-          --secondary-foreground: 120 5% 88%;
-          --muted:                0 0% 7%;
-          --muted-foreground:     0 0% 42%;
-        }
+    #glow{position:fixed;inset:0;pointer-events:none;z-index:0;
+      background:radial-gradient(ellipse 55% 50% at -5% 45%,rgba(34,197,94,.09) 0%,transparent 65%),
+                 radial-gradient(ellipse 50% 45% at 105% 55%,rgba(34,197,94,.07) 0%,transparent 65%),
+                 radial-gradient(ellipse 60% 35% at 50% -5%,rgba(34,197,94,.05) 0%,transparent 60%)}
+    #noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.028;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
 
-        /* Preto puro forçado — cobre todos os backgrounds de componentes */
-        html,
-        body,
-        #root,
-        #root > div,
-        #root > div > div,
-        [class*="bg-background"],
-        [class*="bg-card"],
-        [class*="bg-sidebar"] {
-          background-color: #000000 !important;
-        }
+    /* Navbar */
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:50;height:64px;
+      border-bottom:1px solid var(--green-border);background:rgba(0,0,0,.82);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+    .nb{max-width:1280px;margin:0 auto;padding:0 1.5rem;height:100%;
+      display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+    .logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;cursor:pointer}
+    .logo-icon{width:36px;height:36px;border-radius:9px;background:var(--green-dim);
+      border:1px solid var(--green-border);display:flex;align-items:center;
+      justify-content:center;color:var(--green);flex-shrink:0}
+    .logo-text{font-size:1.175rem;font-weight:800;color:var(--fg);white-space:nowrap}
+    .nav-links{display:flex;align-items:center;gap:2rem}
+    .nav-link{font-size:.875rem;color:var(--muted);cursor:pointer;transition:color .15s;
+      white-space:nowrap;text-decoration:none;position:relative;padding-bottom:2px}
+    .nav-link:hover{color:var(--fg)}
+    .nav-link.active{color:var(--fg)}
+    .nav-link.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;
+      height:2px;background:var(--green);border-radius:2px}
+    .nav-cta{background:var(--fg);color:#000;border:none;border-radius:7px;
+      padding:.5rem 1.125rem;font-size:.8125rem;font-weight:700;cursor:pointer;
+      text-decoration:none;display:flex;align-items:center;gap:.375rem;
+      white-space:nowrap;transition:opacity .15s}
+    .nav-cta:hover{opacity:.85}
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;
+      background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--fg);
+      border-radius:2px;transition:all .3s}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-        /* Apenas cards/popups recebem fundo levemente elevado */
-        [class*="rounded"][class*="border"],
-        [class*="rounded-xl"],
-        [class*="rounded-lg"] {
-          background-color: #060606 !important;
-          border-color: rgba(34, 197, 94, 0.1) !important;
-          transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
-        }
-        [class*="rounded"][class*="border"]:hover,
-        [class*="rounded-xl"]:hover,
-        [class*="rounded-lg"]:hover {
-          border-color: rgba(34, 197, 94, 0.22) !important;
-          box-shadow: 0 0 24px rgba(34, 197, 94, 0.07) !important;
-        }
+    /* Mobile menu */
+    #mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:48;
+      background:rgba(0,0,0,.97);backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--green-border);padding:1.25rem 1.5rem 1.75rem;
+      flex-direction:column;gap:.25rem}
+    #mobile-menu.open{display:flex}
+    .mob-link{font-size:1rem;color:var(--muted);cursor:pointer;padding:.875rem 0;
+      border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;
+      gap:.75rem;text-decoration:none;transition:color .15s}
+    .mob-link:hover,.mob-link.active{color:var(--fg)}
+    .mob-link:last-of-type{border-bottom:none}
+    .mob-cta{margin-top:1rem;background:var(--fg);color:#000;border:none;
+      border-radius:8px;padding:.75rem 1rem;font-size:.9375rem;font-weight:700;
+      cursor:pointer;text-align:center;text-decoration:none;display:block}
 
-        /* Glow atmosférico verde — lateral esquerda e direita */
-        #brazino-glow {
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-          background:
-            radial-gradient(ellipse 50% 55% at -5% 45%,  rgba(34, 197, 94, 0.10) 0%, transparent 65%),
-            radial-gradient(ellipse 50% 55% at 105% 55%, rgba(34, 197, 94, 0.07) 0%, transparent 65%),
-            radial-gradient(ellipse 65% 35% at 50% -5%,  rgba(22, 163, 74, 0.05) 0%, transparent 60%),
-            radial-gradient(ellipse 45% 25% at 50% 105%, rgba(22, 163, 74, 0.03) 0%, transparent 55%);
-        }
+    @media(max-width:900px){
+      .nav-links{display:none}
+      .nav-cta{display:none}
+      .hamburger{display:flex}
+    }
 
-        /* Textura de ruído — como Astral Beams */
-        #brazino-noise {
-          position: fixed;
-          inset: 0;
-          pointer-events: none;
-          z-index: 0;
-          opacity: 0.03;
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-          background-repeat: repeat;
-          background-size: 256px;
-        }
+    #app{position:relative;z-index:1;min-height:100vh;padding-top:64px}
 
-        /* React root acima dos overlays */
-        #root {
-          position: relative !important;
-          z-index: 1 !important;
-        }
+    /* Hero */
+    .hero{position:relative;overflow:hidden;padding:6rem 1.5rem 4rem;text-align:center}
+    .h-glow-1{position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:700px;height:700px;border-radius:50%;background:rgba(34,197,94,.15);filter:blur(120px);pointer-events:none}
+    .h-glow-2{position:absolute;top:20%;right:-5%;width:380px;height:380px;border-radius:50%;background:rgba(34,197,94,.08);filter:blur(100px);pointer-events:none}
+    .h-glow-3{position:absolute;bottom:0;left:-5%;width:280px;height:280px;border-radius:50%;background:rgba(34,197,94,.06);filter:blur(80px);pointer-events:none}
+    .hero-inner{position:relative;max-width:896px;margin:0 auto;display:flex;flex-direction:column;align-items:center}
+    .badge{display:inline-flex;align-items:center;gap:.375rem;border:1px solid rgba(34,197,94,.4);
+      background:rgba(34,197,94,.08);color:var(--green);border-radius:6px;
+      padding:.375rem 1rem;font-size:.75rem;font-weight:600;margin-bottom:1.5rem}
+    .hero-title{font-size:clamp(2.75rem,9vw,5rem);font-weight:900;line-height:1.08;
+      letter-spacing:-.025em;color:var(--fg);display:flex;align-items:center;
+      justify-content:center;gap:.75rem;flex-wrap:wrap}
+    .hero-subtitle{margin-top:1.5rem;font-size:1.0625rem;color:var(--muted);
+      max-width:640px;line-height:1.65}
+    .btn-row{margin-top:2.5rem;display:flex;align-items:center;gap:1rem;
+      flex-wrap:wrap;justify-content:center}
+    .btn-p{display:inline-flex;align-items:center;gap:.5rem;background:var(--fg);
+      color:#000;border:none;border-radius:8px;padding:.625rem 1.5rem;
+      font-size:.875rem;font-weight:700;cursor:pointer;text-decoration:none;
+      min-width:170px;justify-content:center;transition:opacity .15s}
+    .btn-p:hover{opacity:.85}
+    .btn-s{display:inline-flex;align-items:center;gap:.5rem;
+      background:rgba(255,255,255,.05);color:var(--fg);
+      border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.625rem 1.5rem;
+      font-size:.875rem;font-weight:500;cursor:pointer;text-decoration:none;
+      min-width:170px;justify-content:center;transition:background .15s}
+    .btn-s:hover{background:rgba(255,255,255,.09)}
+    .stats-grid{margin-top:4rem;display:grid;grid-template-columns:repeat(2,1fr);gap:2rem 4rem}
+    .stat-n{font-size:2.25rem;font-weight:800;color:var(--fg)}
+    .stat-l{font-size:.8125rem;color:var(--muted);margin-top:.25rem}
 
-        /* Oculta o flash inicial */
-        #root:empty { display: none; }
+    /* Services grid */
+    .svc-section{position:relative;padding:3rem 1.5rem 5rem}
+    .svc-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+      width:600px;height:600px;border-radius:50%;background:rgba(34,197,94,.04);
+      filter:blur(100px);pointer-events:none}
+    .svc-inner{max-width:1280px;margin:0 auto}
+    .svc-header{text-align:center;margin-bottom:3rem}
+    .svc-title{font-size:clamp(1.75rem,5vw,2.5rem);font-weight:800;color:var(--green);margin:.75rem 0}
+    .svc-sub{color:var(--muted);font-size:.9375rem;max-width:520px;margin:0 auto;line-height:1.6}
+    .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+    .svc-card{background:var(--card);border:1px solid var(--green-border);border-radius:16px;
+      padding:1.75rem;cursor:pointer;transition:all .25s;text-decoration:none;display:block}
+    .svc-card:hover{border-color:rgba(34,197,94,.35);box-shadow:0 0 30px rgba(34,197,94,.08);transform:translateY(-2px)}
+    .card-chip{display:inline-flex;align-items:center;gap:.375rem;
+      background:var(--green-dim);border:1px solid var(--green-border);color:var(--green);
+      border-radius:5px;padding:.2rem .625rem;font-size:.65rem;font-weight:700;
+      letter-spacing:.06em;margin-bottom:1rem;text-transform:uppercase}
+    .card-icon-wrap{width:40px;height:40px;border-radius:10px;background:var(--green-dim);
+      display:flex;align-items:center;justify-content:center;color:var(--green);margin-bottom:.875rem}
+    .card-ttl{font-size:1rem;font-weight:700;color:var(--fg);margin-bottom:.375rem}
+    .card-dsc{font-size:.8125rem;color:var(--muted);line-height:1.55}
 
-        /* Navbar — efeito glassmorphism como Astral Beams */
-        nav,
-        header,
-        [class*="sticky top"],
-        [class*="fixed top"],
-        [class*="top-0"] {
-          background-color: rgba(0, 0, 0, 0.80) !important;
-          backdrop-filter: blur(20px) saturate(180%) !important;
-          -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-          border-bottom-color: rgba(34, 197, 94, 0.10) !important;
-        }
+    /* Page header */
+    .pg-header{position:relative;overflow:hidden;padding:5rem 1.5rem 3rem;text-align:center}
+    .pg-glow{position:absolute;top:-50%;left:50%;transform:translateX(-50%);
+      width:500px;height:500px;border-radius:50%;background:rgba(34,197,94,.11);
+      filter:blur(100px);pointer-events:none}
+    .pg-icon{width:64px;height:64px;border-radius:16px;background:var(--green-dim);
+      border:1px solid var(--green-border);display:inline-flex;align-items:center;
+      justify-content:center;color:var(--green);margin:0 auto .875rem}
+    .pg-title{font-size:clamp(2.5rem,8vw,4.25rem);font-weight:900;
+      letter-spacing:-.01em;color:var(--fg)}
+    .pg-bar{width:56px;height:3px;background:var(--green);margin:.625rem auto;border-radius:2px}
+    .pg-sub{font-size:1rem;color:var(--muted);max-width:600px;margin:.75rem auto 0;line-height:1.65}
 
-        /* Divisórias */
-        hr, [class*="separator"], [class*="divider"] {
-          border-color: rgba(34, 197, 94, 0.07) !important;
-          background-color: rgba(34, 197, 94, 0.07) !important;
-        }
+    /* Content */
+    .content{max-width:1280px;margin:0 auto;padding:0 1.5rem 5rem}
+    .divider{height:1px;background:rgba(255,255,255,.055);margin-bottom:3rem}
+    .sec-item{margin-bottom:3.5rem}
+    .sec-head{display:flex;align-items:center;gap:.875rem;margin-bottom:1.25rem}
+    .sec-num{width:30px;height:30px;border-radius:50%;background:var(--green);
+      color:#000;font-size:.8125rem;font-weight:800;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0}
+    .sec-ttl{font-size:1.125rem;font-weight:700;letter-spacing:.05em;
+      text-transform:uppercase;color:var(--fg)}
 
-        /* Scrollbar estilizada */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: rgba(34, 197, 94, 0.22); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(34, 197, 94, 0.45); }
+    /* Video */
+    .vid-card{border:1px solid var(--green-border);border-radius:14px;overflow:hidden;background:var(--card)}
+    .vid-card video{width:100%;display:block;max-height:520px}
 
-        /* Seleção de texto */
-        ::selection { background: rgba(34, 197, 94, 0.28); color: #fff; }
+    /* Tabs */
+    .tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06)}
+    .tab{flex:1;padding:.875rem 1rem;text-align:center;cursor:pointer;font-size:.8125rem;
+      font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+      display:flex;align-items:center;justify-content:center;gap:.5rem;
+      border-bottom:2px solid transparent;transition:all .2s}
+    .tab.active{color:var(--fg);border-bottom-color:var(--green)}
+    .tab:hover{color:var(--fg)}
+    .tab-pane{display:none}
+    .tab-pane.active{display:block}
 
-        /* Focus ring */
-        *:focus-visible { outline-color: rgba(34, 197, 94, 0.55) !important; }
+    /* Copy */
+    .copy-row{display:flex;align-items:center;gap:.625rem;margin-bottom:1.25rem;flex-wrap:wrap}
+    .copy-box{flex:1;min-width:160px;background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:.5625rem 1rem;
+      color:var(--fg);font-size:.875rem;font-family:'Inter',sans-serif;outline:none}
+    .copy-btn{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);
+      border-radius:8px;padding:.5625rem 1.125rem;font-size:.8125rem;font-weight:700;
+      cursor:pointer;white-space:nowrap;transition:all .2s;
+      display:flex;align-items:center;gap:.375rem}
+    .copy-btn:hover{background:rgba(34,197,94,.18)}
+    .copy-btn.copied{background:rgba(34,197,94,.22);color:#4ade80}
 
-        /* Hover em botões — glow verde sutil */
-        button:hover,
-        [role="button"]:hover {
-          box-shadow: 0 0 18px rgba(34, 197, 94, 0.14) !important;
-          transition: box-shadow 0.2s ease !important;
-        }
+    /* Checklist */
+    .checklist{list-style:none;border:1px solid var(--green-border);border-radius:14px;
+      overflow:hidden;margin-bottom:2rem;background:var(--card)}
+    .checklist li{display:flex;align-items:center;gap:.875rem;padding:1rem 1.25rem;
+      border-bottom:1px solid rgba(255,255,255,.04);font-size:.9375rem;color:var(--fg)}
+    .checklist li:last-child{border-bottom:none}
 
-        /* Animação de entrada */
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(12px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        #root > * { animation: fadeInUp 0.3s ease both; }
-      </style>
-      <script>
-        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-          window.history.replaceState(null, '', '/tutoriais');
-        }
-      </script>
-    </head>
-    <body>
+    /* Banner */
+    .banner-wrap{border:1px solid var(--green-border);border-radius:14px;overflow:hidden;margin-bottom:3rem}
+    .banner-wrap img{width:100%;display:block}
 
-      <div id="brazino-glow"></div>
-      <div id="brazino-noise"></div>
-      <div id="root"></div>
+    /* Reqs label */
+    .reqs-label{font-size:.8125rem;font-weight:600;letter-spacing:.06em;
+      text-transform:uppercase;color:var(--muted);margin-bottom:.875rem}
 
-      <script>
-      (function () {
-        const removeRidiculousStuff = () => {
-          const elements = document.querySelectorAll('p, span, h3, h4');
-          elements.forEach(el => {
-            if (el.textContent.includes('Como a conta chega')) {
-              const container = el.closest('.space-y-6') || el.parentElement;
-              if (container) container.style.display = 'none';
-            }
-          });
-          const images = document.querySelectorAll('img[alt*="conta chega"]');
-          images.forEach(img => {
-            const container = img.closest('.space-y-6') || img.parentElement;
-            if (container) container.style.display = 'none';
-          });
-        };
+    /* Footer */
+    .footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 1.5rem;text-align:center}
+    .footer p{color:var(--muted);font-size:.8125rem}
+    .footer strong{color:var(--green)}
 
-        const observer = new MutationObserver(removeRidiculousStuff);
-        observer.observe(document.body, { childList: true, subtree: true });
-        removeRidiculousStuff();
+    /* Scrollbar */
+    ::-webkit-scrollbar{width:5px}
+    ::-webkit-scrollbar-track{background:#000}
+    ::-webkit-scrollbar-thumb{background:rgba(34,197,94,.2);border-radius:4px}
+    ::-webkit-scrollbar-thumb:hover{background:rgba(34,197,94,.4)}
+    ::selection{background:rgba(34,197,94,.25);color:#fff}
 
-        var clickSound = new Audio('/assets/button-click.mp3');
-        clickSound.preload = 'auto';
+    @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .fade-in{animation:fadeUp .32s ease both}
+    svg{flex-shrink:0}
+  </style>
+</head>
+<body>
 
-        document.addEventListener('click', function (e) {
-          var target = e.target;
-          while (target && target !== document) {
-            var tag = target.tagName ? target.tagName.toLowerCase() : '';
-            var role = target.getAttribute ? target.getAttribute('role') : null;
-            var isClickable =
-              tag === 'button' || tag === 'a' || tag === 'input' ||
-              tag === 'select' || tag === 'label' ||
-              role === 'button' || role === 'link' || role === 'tab' || role === 'menuitem' ||
-              (target.onclick != null) ||
-              (target.style && target.style.cursor === 'pointer') ||
-              (target.className && typeof target.className === 'string' && (
-                target.className.indexOf('btn') !== -1 ||
-                target.className.indexOf('button') !== -1 ||
-                target.className.indexOf('cursor-pointer') !== -1
-              ));
-            if (isClickable) {
-              var sound = clickSound.cloneNode();
-              sound.volume = 0.6;
-              sound.play().catch(function () {});
-              break;
-            }
-            target = target.parentNode;
-          }
-        }, true);
-      })();
-      </script>
-    </body>
-  </html>
+<div id="glow"></div>
+<div id="noise"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nb">
+    <a class="logo" onclick="navigate('/')">
+      <div class="logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/>
+          <path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/>
+        </svg>
+      </div>
+      <span class="logo-text">Brazino Beaming</span>
+    </a>
+
+    <div class="nav-links">
+      <a class="nav-link" data-route="/tutoriais" onclick="navigate('/tutoriais')">Tutoriais</a>
+      <a class="nav-link" data-route="/metodos"   onclick="navigate('/metodos')">Métodos</a>
+      <a class="nav-link" data-route="/geradores" onclick="navigate('/geradores')">Geradores</a>
+      <a class="nav-link" data-route="/bypassers" onclick="navigate('/bypassers')">Bypassers</a>
+      <a class="nav-link" data-route="/refreshers" onclick="navigate('/refreshers')">Refreshers</a>
+    </div>
+
+    <a class="nav-cta" href="https://discord.gg/vAxJnP6Pnt" target="_blank" rel="noopener">
+      Entrar no Discord
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+
+    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu">
+  <a class="mob-link" data-route="/tutoriais" onclick="navigate('/tutoriais');closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+    Tutoriais
+  </a>
+  <a class="mob-link" data-route="/metodos" onclick="navigate('/metodos');closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    Métodos
+  </a>
+  <a class="mob-link" data-route="/geradores" onclick="navigate('/geradores');closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+    Geradores
+  </a>
+  <a class="mob-link" data-route="/bypassers" onclick="navigate('/bypassers');closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Bypassers
+  </a>
+  <a class="mob-link" data-route="/refreshers" onclick="navigate('/refreshers');closeMenu()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+    Refreshers
+  </a>
+  <a class="mob-cta" href="https://discord.gg/vAxJnP6Pnt" target="_blank" rel="noopener" onclick="closeMenu()">Entrar no Discord →</a>
+</div>
+
+<!-- APP -->
+<div id="app"></div>
+
+<script>
+// ── Sound ──
+var clickSound = new Audio('/assets/button-click.mp3');
+clickSound.preload = 'auto';
+document.addEventListener('click', function(e) {
+  var t = e.target;
+  while (t && t !== document) {
+    var tag = (t.tagName || '').toLowerCase();
+    var role = t.getAttribute && t.getAttribute('role');
+    if (['button','a','input','select','label'].includes(tag) || ['button','link','tab'].includes(role)) {
+      var s = clickSound.cloneNode(); s.volume = .55; s.play().catch(function(){});
+      break;
+    }
+    t = t.parentNode;
+  }
+}, true);
+
+// ── SVG helpers ──
+var ICO = {
+  sparkles: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>',
+  star: '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></svg>',
+  arr: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>',
+  check: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  copy: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
+  monitor: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
+  phone: '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>',
+  play: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>',
+  bolt: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
+  wrench: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+  shield: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+  refresh: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
+};
+
+function vidEl(src) {
+  return '<div class="vid-card"><video controls playsinline preload="metadata"><source src="' + src + '" type="video/mp4">Seu navegador não suporta vídeo.</video></div>';
+}
+function secHead(n, title) {
+  return '<div class="sec-head"><div class="sec-num">' + n + '</div><h3 class="sec-ttl">' + title + '</h3></div>';
+}
+function pgHead(iconKey, title, subtitle) {
+  return '<div class="pg-header"><div class="pg-glow"></div>' +
+    '<div class="pg-icon fade-in">' + ICO[iconKey] + '</div>' +
+    '<h1 class="pg-title fade-in">' + title + '</h1>' +
+    '<div class="pg-bar fade-in"></div>' +
+    '<p class="pg-sub fade-in">' + subtitle + '</p></div>';
+}
+function footer() {
+  return '<footer class="footer"><p>© 2026 <strong>Brazino Beaming</strong>. Todos os direitos reservados.</p></footer>';
+}
+
+// ── Pages ──
+function pageHome() {
+  var cards = [
+    {r:'/tutoriais', i:'play',    t:'Tutoriais', d:'Guias em vídeo passo a passo sobre Beam e geração de links falsos de Roblox.'},
+    {r:'/metodos',   i:'bolt',    t:'Métodos',   d:'Diferentes abordagens e estratégias para usar o Beam com eficiência.'},
+    {r:'/geradores', i:'wrench',  t:'Geradores', d:'Painéis de controle para criar e gerenciar seus links falsos de Roblox.'},
+    {r:'/bypassers', i:'shield',  t:'Bypassers', d:'Ferramentas para contornar sistemas de detecção e obter acesso às contas.'},
+    {r:'/refreshers',i:'refresh', t:'Refreshers',d:'Renove sessões e mantenha suas contas sempre ativas automaticamente.'},
+  ];
+  var cardHtml = cards.map(function(c) {
+    return '<a class="svc-card" onclick="navigate(\'' + c.r + '\')">' +
+      '<div class="card-chip">' + ICO.star + ' Destaque</div>' +
+      '<div class="card-icon-wrap">' + ICO[c.i] + '</div>' +
+      '<div class="card-ttl">' + c.t + '</div>' +
+      '<div class="card-dsc">' + c.d + '</div></a>';
+  }).join('');
+  return '<div class="hero">' +
+    '<div class="h-glow-1"></div><div class="h-glow-2"></div><div class="h-glow-3"></div>' +
+    '<div class="hero-inner fade-in">' +
+      '<span class="badge">' + ICO.star + ' #1 Beam Tools</span>' +
+      '<h1 class="hero-title">' + ICO.sparkles + ' Brazino Beaming</h1>' +
+      '<p class="hero-subtitle">Brazino Beaming — Ferramentas premium para Beam. Tutoriais, métodos, geradores, bypassers e refreshers para você dominar o jogo.</p>' +
+      '<div class="btn-row">' +
+        '<a class="btn-p" onclick="navigate(\'/tutoriais\')">Ver Tutoriais ' + ICO.arr + '</a>' +
+        '<a class="btn-s" onclick="navigate(\'/geradores\')">Explorar Ferramentas</a>' +
+      '</div>' +
+      '<div class="stats-grid">' +
+        '<div><div class="stat-n">5+</div><div class="stat-l">Ferramentas</div></div>' +
+        '<div><div class="stat-n">24/7</div><div class="stat-l">Suporte</div></div>' +
+      '</div>' +
+    '</div></div>' +
+    '<div class="svc-section"><div class="svc-glow"></div><div class="svc-inner">' +
+      '<div class="svc-header">' +
+        '<span class="badge">Seções</span>' +
+        '<h2 class="svc-title">Nossas Ferramentas</h2>' +
+        '<p class="svc-sub">Explore nossas ferramentas premium criadas com excelência e confiabilidade para todas as suas necessidades.</p>' +
+      '</div>' +
+      '<div class="svc-grid">' + cardHtml + '</div>' +
+    '</div></div>' + footer();
+}
+
+function pageTutoriais() {
+  return pgHead('play','TUTORIAIS','Guias em vídeo e passo a passo ensinando tudo sobre o Beam e como gerar links falsos de Roblox.') +
+    '<div class="content"><div class="divider"></div>' +
+    '<div class="sec-item fade-in">' + secHead(1,'Webhook') + vidEl('/webhook-tutorial.mp4') + '</div>' +
+    '<div class="sec-item fade-in">' + secHead(2,'Encurtar Link') + vidEl('/encurtar-link.mp4') + '</div>' +
+    '<div class="sec-item fade-in">' + secHead(3,'Disfarcar Link') + vidEl('/disfarcar-link.mp4') + '</div>' +
+    '<div class="sec-item fade-in">' + secHead(4,'Autenticador') + vidEl('/autenticador.mp4') + '</div>' +
+    '</div>' + footer();
+}
+
+function pageMetodos() {
+  return pgHead('bolt','MÉTODOS','Diferentes abordagens e estratégias para usar o Beam com eficiência e alcançar mais pessoas.') +
+    '<div class="content"><div class="divider"></div>' +
+    '<div class="sec-item fade-in">' +
+      secHead(1,'Cookie') +
+      '<div class="vid-card">' +
+        '<div class="tabs">' +
+          '<div class="tab active" onclick="switchTab(this,\'tab-pc\')">' + ICO.monitor + ' PC</div>' +
+          '<div class="tab" onclick="switchTab(this,\'tab-cel\')">' + ICO.phone + ' Celular</div>' +
+        '</div>' +
+        '<div id="tab-pc" class="tab-pane active"><video controls playsinline preload="metadata" style="width:100%;display:block"><source src="/metodo-cookie-pc.mp4" type="video/mp4"></video></div>' +
+        '<div id="tab-cel" class="tab-pane"><video controls playsinline preload="metadata" style="width:100%;display:block"><source src="/metodo-cookie-celular.mp4" type="video/mp4"></video></div>' +
+      '</div>' +
+    '</div>' +
+    '</div>' + footer();
+}
+
+function pageGeradores() {
+  var gens = [
+    {n:1, t:'Servidor Privado', src:'/link-servidor-privado.mp4'},
+    {n:2, t:'Grupo',            src:'/link-grupo.mp4'},
+    {n:3, t:'Perfil',           src:'/link-perfil.mp4'},
+  ];
+  var genHtml = gens.map(function(g) {
+    return '<div class="sec-item fade-in">' +
+      secHead(g.n, g.t) +
+      '<div class="copy-row">' +
+        '<input class="copy-box" id="inp-' + g.n + '" type="text" placeholder="Cole ou insira o link aqui..."/>' +
+        '<button class="copy-btn" id="cbtn-' + g.n + '" onclick="copyLink(' + g.n + ')">' + ICO.copy + ' Copiar</button>' +
+      '</div>' +
+      vidEl(g.src) + '</div>';
+  }).join('');
+  return pgHead('wrench','GERADORES','Acesse os geradores e painéis de controle do Beam para criar e gerenciar seus links falsos de Roblox.') +
+    '<div class="content"><div class="divider"></div>' +
+    '<div class="banner-wrap fade-in"><img src="/banner-paineis.gif" alt="Painéis Brazino"/></div>' +
+    genHtml + '</div>' + footer();
+}
+
+function pageBypassers() {
+  var reqs = ['Conta com mais de 13 anos de idade','Cookie refrescado (atualizado)','Verificação de idade ativa','Autenticação em duas etapas (2FA)','Autenticador vinculado à conta'];
+  var reqHtml = reqs.map(function(r) {
+    return '<li>' + ICO.check + '<span>' + r + '</span></li>';
+  }).join('');
+  return pgHead('shield','BYPASSERS','Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas.') +
+    '<div class="content"><div class="divider"></div>' +
+    '<div class="sec-item fade-in">' +
+      '<p class="reqs-label">Requisitos</p>' +
+      '<ul class="checklist">' + reqHtml + '</ul>' +
+    '</div>' +
+    '<div class="sec-item fade-in">' + secHead(1,'Bypass') + vidEl('/bypass.mp4') + '</div>' +
+    '</div>' + footer();
+}
+
+function pageRefreshers() {
+  return pgHead('refresh','REFRESHERS','Ferramentas exclusivas Brazino para renovar sessões e manter suas contas sempre ativas.') +
+    '<div class="content"><div class="divider"></div>' +
+    '<div class="sec-item fade-in">' + secHead(1,'Recovery') + vidEl('/recovery.mp4') + '</div>' +
+    '</div>' + footer();
+}
+
+var PAGES = {
+  '/':           pageHome,
+  '/tutoriais':  pageTutoriais,
+  '/metodos':    pageMetodos,
+  '/geradores':  pageGeradores,
+  '/bypassers':  pageBypassers,
+  '/refreshers': pageRefreshers,
+};
+
+// ── Router ──
+function navigate(path) {
+  history.pushState({}, '', path);
+  render(path);
+  window.scrollTo(0,0);
+}
+window.addEventListener('popstate', function() { render(location.pathname); });
+
+function render(path) {
+  var fn = PAGES[path] || pageTutoriais;
+  document.getElementById('app').innerHTML = fn();
+  updateActive(path);
+}
+
+function updateActive(path) {
+  document.querySelectorAll('.nav-link, .mob-link').forEach(function(el) {
+    var r = el.getAttribute('data-route');
+    if (r) el.classList.toggle('active', r === path);
+  });
+}
+
+// ── Hamburger ──
+function toggleMenu() {
+  document.getElementById('mobile-menu').classList.toggle('open');
+  document.getElementById('ham').classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('mobile-menu').classList.remove('open');
+  document.getElementById('ham').classList.remove('open');
+}
+
+// ── Tabs ──
+function switchTab(el, targetId) {
+  var card = el.closest('.vid-card');
+  card.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  card.querySelectorAll('.tab-pane').forEach(function(p){ p.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+// ── Copy ──
+function copyLink(n) {
+  var inp = document.getElementById('inp-' + n);
+  var btn = document.getElementById('cbtn-' + n);
+  var text = inp.value.trim() || inp.placeholder;
+  navigator.clipboard.writeText(text).then(function() {
+    btn.classList.add('copied');
+    btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> Copiado!';
+    setTimeout(function() {
+      btn.classList.remove('copied');
+      btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg> Copiar';
+    }, 2000);
+  }).catch(function() { inp.select(); document.execCommand('copy'); });
+}
+
+// ── Init ──
+var initPath = location.pathname;
+if (!PAGES[initPath]) initPath = '/tutoriais';
+render(initPath);
+</script>
+</body>
+</html>
