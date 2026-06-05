@@ -168,8 +168,7 @@
         transition:opacity .3s}
       .gen-card:hover{border-color:rgba(34,197,94,.4);box-shadow:0 0 28px rgba(34,197,94,.1);transform:translateY(-2px)}
       .gen-card:hover::before{opacity:1}
-      .gen-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;
-        justify-content:center;flex-shrink:0;border:1px solid rgba(255,255,255,.1)}
+      .gen-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:1px solid rgba(255,255,255,.12)}.gen-icon img{width:100%;height:100%;object-fit:cover;display:block}
       .gen-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:.625rem}
       .gen-tag{display:inline-flex;align-items:center;background:rgba(245,158,11,.12);
         border:1px solid rgba(245,158,11,.3);color:#f59e0b;border-radius:5px;
@@ -573,50 +572,21 @@ function pageMetodos() {
 
 // ── GERADORES ──
 var GERADORES = [
-    {
-      name:'BRAZINO', tag:'Painel 01',
-      href:'https://app.beamse.pro/gen/Brazino',
-      platform:'Beamse',
-      color:'#22c55e',
-      icon:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>',
-    },
-    {
-      name:'BRAZINO X SPLUNK', tag:'Painel 02',
-      href:'https://app.beamers.si/u/Brazino',
-      platform:'Beamers × Splunk',
-      color:'#818cf8',
-      icon:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="12" rx="10" ry="10"/><path d="M12 8v4l3 3"/></svg>',
-    },
-    {
-      name:'BRAZINO X INJURIES', tag:'Painel 03',
-      href:'https://www.logged.tg/auth/brazino777',
-      platform:'Logged × Injuries',
-      color:'#f87171',
-      icon:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>',
-    },
-    {
-      name:'BRAZINO X IMMORTAL', tag:'Painel 04',
-      href:'https://immortal.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==',
-      platform:'Immortal',
-      color:'#fbbf24',
-      icon:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-    },
-    {
-      name:'BRAZINO X SHOCKIFY', tag:'Painel 05',
-      href:'https://shockify.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==',
-      platform:'Shockify',
-      color:'#38bdf8',
-      icon:'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
-    },
+    { name:'BRAZINO',          tag:'Painel 01', href:'https://app.beamse.pro/gen/Brazino',                        platform:'Beamse',           color:'#22c55e', img:'/icon-brazino.jpg' },
+    { name:'BRAZINO X SPLUNK', tag:'Painel 02', href:'https://app.beamers.si/u/Brazino',                          platform:'Beamers × Splunk', color:'#38bdf8', img:'/icon-splunk.png' },
+    { name:'BRAZINO X INJURIES',tag:'Painel 03',href:'https://www.logged.tg/auth/brazino777',                     platform:'Logged × Injuries',color:'#f87171', img:'/icon-injuries.png' },
+    { name:'BRAZINO X IMMORTAL',tag:'Painel 04',href:'https://immortal.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==',   platform:'Immortal',         color:'#a78bfa', img:'/icon-immortal.png' },
+    { name:'BRAZINO X SHOCKIFY',tag:'Painel 05',href:'https://shockify.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==',  platform:'Shockify',         color:'#fbbf24', img:'/icon-shockify.png' },
   ];
-  
+    
 function pageGeradores() {
+    var crown = '<svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L9.5 8.5 3 7l4 8H17l4-8-6.5 1.5L12 2z"/><rect x="6" y="16" width="12" height="2.5" rx="1" fill="#f59e0b"/></svg>';
     var cardsHtml = GERADORES.map(function(g) {
       return '<a class="gen-card" href="' + g.href + '" target="_blank" rel="noopener">' +
-        '<div class="gen-icon" style="background:' + g.color + '1a;color:' + g.color + '">' + g.icon + '</div>' +
+        '<div class="gen-icon"><img src="' + g.img + '" alt="' + g.name + '"></div>' +
         '<div class="gen-body">' +
           '<span class="gen-tag">' + g.tag + '</span>' +
-          '<div class="gen-name">' + g.name + '</div>' +
+          '<div class="gen-name">' + crown + g.name + '</div>' +
           '<div class="gen-platform">' + g.platform + '</div>' +
           '<span class="gen-access">Acessar Painel ' + ICO.arr + '</span>' +
         '</div>' +
