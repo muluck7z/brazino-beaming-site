@@ -8,63 +8,101 @@
   <link rel="icon" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root{--bg:#000;--fg:#f9fafb;--muted:#6b7280;--green:#22c55e;--green-dim:rgba(34,197,94,.1);--green-border:rgba(34,197,94,.18);--card:#07070a;--border:rgba(255,255,255,.07)}
+    :root{
+      --primary-green:#1B7340;
+      --vibrant-green:#39D353;
+      --dark-green:#0D2818;
+      --bg-light:#F4F9F5;
+      --bg-card:#FFFFFF;
+      --text-primary:#0D2818;
+      --text-secondary:#6B7280;
+      --accent-amber:#F59E0B;
+      --shadow-sm:0 1px 3px rgba(13,40,24,.08);
+      --shadow-md:0 4px 12px rgba(13,40,24,.12);
+      --shadow-lg:0 8px 24px rgba(13,40,24,.15);
+      --transition-fast:0.2s ease;
+      --transition-normal:0.3s ease;
+    }
+    
     *{margin:0;padding:0;box-sizing:border-box}
     html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--fg);min-height:100vh;overflow-x:hidden}
-
-    #glow{position:fixed;inset:0;pointer-events:none;z-index:0;
-      background:radial-gradient(ellipse 55% 50% at -5% 45%,rgba(34,197,94,.09) 0%,transparent 65%),
-                 radial-gradient(ellipse 50% 45% at 105% 55%,rgba(34,197,94,.07) 0%,transparent 65%),
-                 radial-gradient(ellipse 60% 35% at 50% -5%,rgba(34,197,94,.05) 0%,transparent 60%)}
-    #noise{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.028;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:256px}
+    body{
+      font-family:'Inter',sans-serif;
+      background:var(--bg-light);
+      color:var(--text-primary);
+      min-height:100vh;
+      overflow-x:hidden
+    }
 
     /* Navbar */
-    #navbar{position:fixed;top:0;left:0;right:0;z-index:50;height:64px;
-      border-bottom:1px solid var(--green-border);background:rgba(0,0,0,.82);
-      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-    .nb{max-width:1280px;margin:0 auto;padding:0 1.5rem;height:100%;
-      display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+    #navbar{
+      position:fixed;top:0;left:0;right:0;z-index:50;height:64px;
+      border-bottom:2px solid var(--vibrant-green);
+      background:rgba(244,249,245,.95);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      box-shadow:var(--shadow-sm)
+    }
+    .nb{
+      max-width:1280px;margin:0 auto;padding:0 1.5rem;height:100%;
+      display:flex;align-items:center;justify-content:space-between;gap:1.5rem
+    }
     .logo{display:flex;align-items:center;gap:.625rem;text-decoration:none;cursor:pointer}
-    .logo-img{width:38px;height:38px;border-radius:9px;object-fit:cover;flex-shrink:0;border:1px solid var(--green-border)}
-    .logo-text{font-size:1.175rem;font-weight:800;color:var(--fg);white-space:nowrap}
+    .logo-img{width:38px;height:38px;border-radius:9px;object-fit:cover;flex-shrink:0;border:2px solid var(--primary-green)}
+    .logo-text{font-size:1.175rem;font-weight:800;color:var(--primary-green);white-space:nowrap;font-family:'Poppins',sans-serif}
     .nav-links{display:flex;align-items:center;gap:2rem}
-    .nav-link{font-size:.875rem;color:var(--muted);cursor:pointer;transition:color .15s;
-      white-space:nowrap;text-decoration:none;position:relative;padding-bottom:2px}
-    .nav-link:hover{color:var(--fg)}
-    .nav-link.active{color:var(--fg)}
-    .nav-link.active::after{content:'';position:absolute;bottom:-2px;left:0;right:0;
-      height:2px;background:var(--green);border-radius:2px}
-    .nav-cta{background:var(--fg);color:#000;border:none;border-radius:7px;
+    .nav-link{
+      font-size:.875rem;color:var(--text-secondary);cursor:pointer;
+      transition:color var(--transition-fast);
+      white-space:nowrap;text-decoration:none;position:relative;padding-bottom:2px;
+      font-weight:500
+    }
+    .nav-link:hover{color:var(--primary-green)}
+    .nav-link.active{color:var(--primary-green);font-weight:700}
+    .nav-link.active::after{
+      content:'';position:absolute;bottom:-2px;left:0;right:0;
+      height:3px;background:var(--vibrant-green);border-radius:2px;
+      animation:slideIn var(--transition-normal)
+    }
+    .nav-cta{
+      background:var(--primary-green);color:#fff;border:none;border-radius:8px;
       padding:.5rem 1.125rem;font-size:.8125rem;font-weight:700;cursor:pointer;
       text-decoration:none;display:flex;align-items:center;gap:.375rem;
-      white-space:nowrap;transition:opacity .15s}
-    .nav-cta:hover{opacity:.85}
-    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;
-      background:none;border:none;padding:4px}
-    .hamburger span{display:block;width:24px;height:2px;background:var(--fg);
-      border-radius:2px;transition:all .3s}
+      white-space:nowrap;transition:all var(--transition-fast);
+      box-shadow:var(--shadow-sm)
+    }
+    .nav-cta:hover{
+      background:var(--vibrant-green);transform:translateY(-2px);box-shadow:var(--shadow-md)
+    }
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--primary-green);border-radius:2px;transition:all var(--transition-normal)}
     .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
     .hamburger.open span:nth-child(2){opacity:0}
     .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
     /* Mobile menu */
-    #mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:48;
-      background:rgba(0,0,0,.97);backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--green-border);padding:1.25rem 1.5rem 1.75rem;
-      flex-direction:column;gap:.25rem}
-    #mobile-menu.open{display:flex}
-    .mob-link{font-size:1rem;color:var(--muted);cursor:pointer;padding:.875rem 0;
-      border-bottom:1px solid rgba(255,255,255,.04);display:flex;align-items:center;
-      gap:.75rem;text-decoration:none;transition:color .15s}
-    .mob-link:hover,.mob-link.active{color:var(--fg)}
+    #mobile-menu{
+      display:none;position:fixed;top:64px;left:0;right:0;z-index:48;
+      background:rgba(244,249,245,.98);backdrop-filter:blur(20px);
+      border-bottom:2px solid var(--vibrant-green);padding:1.25rem 1.5rem 1.75rem;
+      flex-direction:column;gap:.25rem;box-shadow:var(--shadow-md)
+    }
+    #mobile-menu.open{display:flex;animation:slideDown var(--transition-normal)}
+    .mob-link{
+      font-size:1rem;color:var(--text-secondary);cursor:pointer;padding:.875rem 0;
+      border-bottom:1px solid rgba(13,40,24,.08);display:flex;align-items:center;
+      gap:.75rem;text-decoration:none;transition:color var(--transition-fast);font-weight:500
+    }
+    .mob-link:hover,.mob-link.active{color:var(--primary-green);font-weight:700}
     .mob-link:last-of-type{border-bottom:none}
-    .mob-cta{margin-top:1rem;background:var(--fg);color:#000;border:none;
+    .mob-cta{
+      margin-top:1rem;background:var(--primary-green);color:#fff;border:none;
       border-radius:8px;padding:.75rem 1rem;font-size:.9375rem;font-weight:700;
-      cursor:pointer;text-align:center;text-decoration:none;display:block}
+      cursor:pointer;text-align:center;text-decoration:none;display:block;
+      transition:all var(--transition-fast)
+    }
+    .mob-cta:hover{background:var(--vibrant-green);transform:translateY(-2px)}
 
     @media(max-width:900px){
       .nav-links{display:none}
@@ -76,238 +114,304 @@
 
     /* Page header */
     .pg-header{position:relative;overflow:hidden;padding:5rem 1.5rem 3rem;text-align:center}
-    .pg-glow{position:absolute;top:-50%;left:50%;transform:translateX(-50%);
-      width:500px;height:500px;border-radius:50%;background:rgba(34,197,94,.11);
-      filter:blur(100px);pointer-events:none}
-    .pg-icon{width:64px;height:64px;border-radius:16px;background:var(--green-dim);
-      border:1px solid var(--green-border);display:inline-flex;align-items:center;
-      justify-content:center;color:var(--green);margin:0 auto .875rem}
-    .pg-title{font-size:clamp(2.5rem,8vw,4.25rem);font-weight:900;
-      letter-spacing:-.01em;color:var(--fg)}
-    .pg-bar{width:56px;height:3px;background:var(--green);margin:.625rem auto;border-radius:2px}
-    .pg-sub{font-size:1rem;color:var(--muted);max-width:600px;margin:.75rem auto 0;line-height:1.65}
+    .pg-glow{
+      position:absolute;top:-50%;left:50%;transform:translateX(-50%);
+      width:500px;height:500px;border-radius:50%;
+      background:radial-gradient(ellipse 55% 50% at 50% 50%, rgba(57,211,83,.15) 0%, transparent 65%);
+      filter:blur(100px);pointer-events:none
+    }
+    .pg-icon{
+      width:64px;height:64px;border-radius:16px;
+      background:rgba(57,211,83,.12);
+      border:2px solid var(--vibrant-green);display:inline-flex;align-items:center;
+      justify-content:center;color:var(--vibrant-green);margin:0 auto .875rem;
+      animation:fadeUp .5s ease both
+    }
+    .pg-title{
+      font-size:clamp(2.5rem,8vw,4.25rem);font-weight:900;
+      letter-spacing:-.01em;color:var(--primary-green);font-family:'Poppins',sans-serif;
+      animation:fadeUp .5s ease both .1s;animation-fill-mode:both
+    }
+    .pg-bar{width:56px;height:4px;background:var(--vibrant-green);margin:.625rem auto;border-radius:2px;animation:slideIn .5s ease both .2s;animation-fill-mode:both}
+    .pg-sub{
+      font-size:1rem;color:var(--text-secondary);max-width:600px;margin:.75rem auto 0;
+      line-height:1.65;animation:fadeUp .5s ease both .3s;animation-fill-mode:both
+    }
 
     /* Content */
     .content{max-width:1280px;margin:0 auto;padding:0 1.5rem 5rem}
-    .divider{height:1px;background:rgba(255,255,255,.055);margin-bottom:3rem}
+    .divider{height:2px;background:linear-gradient(90deg, transparent, var(--vibrant-green), transparent);margin-bottom:3rem}
     .sec-item{margin-bottom:3.5rem}
     .sec-head{display:flex;align-items:center;gap:.875rem;margin-bottom:1.25rem}
-    .sec-num{width:30px;height:30px;border-radius:50%;background:var(--green);
-      color:#000;font-size:.8125rem;font-weight:800;display:flex;align-items:center;
-      justify-content:center;flex-shrink:0}
-    .sec-ttl{font-size:1.125rem;font-weight:700;letter-spacing:.05em;
-      text-transform:uppercase;color:var(--fg)}
+    .sec-num{
+      width:36px;height:36px;border-radius:50%;background:var(--vibrant-green);
+      color:#fff;font-size:.8125rem;font-weight:800;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0;font-family:'Poppins',sans-serif;
+      box-shadow:var(--shadow-md)
+    }
+    .sec-ttl{
+      font-size:1.125rem;font-weight:700;letter-spacing:.05em;
+      text-transform:uppercase;color:var(--primary-green);font-family:'Poppins',sans-serif
+    }
 
-    /* Video */
-    .vid-card{border:1px solid var(--green-border);border-radius:14px;overflow:hidden;background:var(--card)}
-    .vid-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}.vid-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
-    .vid-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}.vid-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
-    .vid-desc{padding:1.5rem 1.75rem;border-top:1px solid var(--green-border)}
+    /* Video Cards */
+    .vid-card{
+      border:2px solid var(--vibrant-green);border-radius:16px;overflow:hidden;
+      background:var(--bg-card);box-shadow:var(--shadow-md);
+      transition:all var(--transition-fast);
+      animation:fadeUp .5s ease both
+    }
+    .vid-card:hover{
+      transform:translateY(-4px);box-shadow:var(--shadow-lg);border-color:var(--primary-green)
+    }
+    .vid-wrap{position:relative;width:100%;aspect-ratio:16/9;background:#000;overflow:hidden}
+    .vid-wrap video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+    .vid-desc{
+      padding:1.75rem;border-top:2px solid var(--vibrant-green);
+      border-left:4px solid var(--vibrant-green)
+    }
     .vid-desc-badges{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.875rem}
-    .badge-accent{display:inline-flex;align-items:center;background:rgba(245,158,11,.12);
-      border:1px solid rgba(245,158,11,.35);color:#f59e0b;border-radius:5px;
-      padding:.2rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-    .badge-green{display:inline-flex;align-items:center;background:var(--green-dim);
-      border:1px solid var(--green-border);color:var(--green);border-radius:5px;
-      padding:.2rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-    .vid-desc h3{font-size:1.25rem;font-weight:800;color:var(--fg);letter-spacing:.03em;
-      text-transform:uppercase;margin-bottom:.5rem}
-    .vid-desc p{font-size:.9375rem;color:var(--muted);line-height:1.65;max-width:760px}
+    .badge-accent{
+      display:inline-flex;align-items:center;background:rgba(245,158,11,.15);
+      border:1.5px solid var(--accent-amber);color:var(--accent-amber);border-radius:6px;
+      padding:.3rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;
+      text-transform:uppercase;font-family:'Poppins',sans-serif
+    }
+    .badge-green{
+      display:inline-flex;align-items:center;background:rgba(57,211,83,.12);
+      border:1.5px solid var(--vibrant-green);color:var(--vibrant-green);border-radius:6px;
+      padding:.3rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;
+      text-transform:uppercase;font-family:'Poppins',sans-serif
+    }
+    .vid-desc h3{
+      font-size:1.25rem;font-weight:800;color:var(--primary-green);letter-spacing:.03em;
+      text-transform:uppercase;margin-bottom:.5rem;font-family:'Poppins',sans-serif
+    }
+    .vid-desc p{font-size:.9375rem;color:var(--text-secondary);line-height:1.65;max-width:760px}
 
     /* Tabs */
-    .tabs{display:flex;border-bottom:1px solid rgba(255,255,255,.06)}
-    .tab{flex:1;padding:.875rem 1rem;text-align:center;cursor:pointer;font-size:.8125rem;
-      font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+    .tabs{display:flex;border-bottom:2px solid var(--vibrant-green)}
+    .tab{
+      flex:1;padding:.875rem 1rem;text-align:center;cursor:pointer;font-size:.8125rem;
+      font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-secondary);
       display:flex;align-items:center;justify-content:center;gap:.5rem;
-      border-bottom:2px solid transparent;transition:all .2s}
-    .tab.active{color:var(--fg);border-bottom-color:var(--green)}
-    .tab:hover{color:var(--fg)}
+      border-bottom:3px solid transparent;transition:all var(--transition-fast);
+      font-family:'Poppins',sans-serif
+    }
+    .tab.active{color:var(--primary-green);border-bottom-color:var(--vibrant-green)}
+    .tab:hover{color:var(--primary-green)}
     .tab-pane{display:none}
     .tab-pane.active{display:block}
 
     /* Copy/Models */
     .copy-row{display:flex;align-items:center;gap:.625rem;margin-bottom:1.25rem;flex-wrap:wrap}
-    .copy-btn{background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);
+    .copy-btn{
+      background:rgba(57,211,83,.12);color:var(--vibrant-green);border:1.5px solid var(--vibrant-green);
       border-radius:8px;padding:.5625rem 1.125rem;font-size:.8125rem;font-weight:700;
-      cursor:pointer;white-space:nowrap;transition:all .2s;
-      display:flex;align-items:center;gap:.375rem}
-    .copy-btn:hover{background:rgba(34,197,94,.18)}
-    .copy-btn.copied{background:rgba(34,197,94,.22);color:#4ade80}
+      cursor:pointer;white-space:nowrap;transition:all var(--transition-fast);
+      display:flex;align-items:center;gap:.375rem;font-family:'Poppins',sans-serif
+    }
+    .copy-btn:hover{background:rgba(57,211,83,.22);transform:scale(1.02)}
+    .copy-btn.copied{background:rgba(57,211,83,.25);color:var(--vibrant-green)}
 
-    .modelo-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+    .modelo-item{
+      background:rgba(57,211,83,.06);border:1.5px solid rgba(57,211,83,.2);
       border-radius:10px;padding:1rem 1.25rem;margin-bottom:.75rem;
-      display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-    .modelo-label{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-      color:var(--green);margin-bottom:.375rem}
-    .modelo-text{font-size:.8125rem;color:var(--muted);font-family:monospace;
-      word-break:break-all;line-height:1.5;flex:1}
-    .modelos-title{font-size:.875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-      color:var(--fg);margin:.5rem 0 1rem}
+      display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap
+    }
+    .modelo-label{
+      font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--vibrant-green);margin-bottom:.375rem;font-family:'Poppins',sans-serif
+    }
+    .modelo-text{
+      font-size:.8125rem;color:var(--text-secondary);font-family:'Fira Code',monospace;
+      word-break:break-all;line-height:1.5;flex:1
+    }
+    .modelos-title{
+      font-size:.875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+      color:var(--primary-green);margin:.5rem 0 1rem;font-family:'Poppins',sans-serif
+    }
 
     /* Link button */
-    .link-btn{display:inline-flex;align-items:center;gap:.625rem;
-      background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+    .link-btn{
+      display:inline-flex;align-items:center;gap:.625rem;
+      background:rgba(57,211,83,.12);border:1.5px solid var(--vibrant-green);
       border-radius:10px;padding:.75rem 1.25rem;font-size:.875rem;font-weight:600;
-      color:var(--fg);text-decoration:none;transition:all .2s;margin-top:.5rem}
-    .link-btn:hover{background:rgba(34,197,94,.08);border-color:var(--green-border);color:var(--green)}
+      color:var(--primary-green);text-decoration:none;transition:all var(--transition-fast);
+      margin-top:.5rem;font-family:'Poppins',sans-serif
+    }
+    .link-btn:hover{background:rgba(57,211,83,.22);transform:translateY(-2px);box-shadow:var(--shadow-md)}
 
     /* Checklist */
-    .checklist{list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.75rem;margin-bottom:2rem}
-      .checklist li{display:flex;align-items:center;gap:.875rem;padding:1rem 1.25rem;border-radius:12px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);font-size:.9375rem;color:var(--fg);font-weight:500}
+    .checklist{
+      list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:.75rem;margin-bottom:2rem
+    }
+    .checklist li{
+      display:flex;align-items:center;gap:.875rem;padding:1rem 1.25rem;border-radius:12px;
+      background:rgba(57,211,83,.1);border:1.5px solid rgba(57,211,83,.25);
+      font-size:.9375rem;color:var(--primary-green);font-weight:500;
+      transition:all var(--transition-fast)
+    }
+    .checklist li:hover{background:rgba(57,211,83,.15);transform:translateY(-2px)}
 
     /* Reqs label */
-    .reqs-label{font-size:.8125rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+    .reqs-label{
+      font-size:.8125rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      color:var(--vibrant-green);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem;
+      font-family:'Poppins',sans-serif
+    }
 
     /* Generator cards */
-      .gen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
-      .gen-card{background:var(--card);border:1px solid var(--green-border);border-radius:16px;
-        padding:1.75rem;display:flex;align-items:flex-start;gap:1.25rem;
-        text-decoration:none;transition:all .25s;position:relative;overflow:hidden}
-      .gen-card::before{content:'';position:absolute;inset:0;opacity:0;
-        background:radial-gradient(ellipse 80% 60% at 0% 50%,rgba(34,197,94,.07),transparent);
-        transition:opacity .3s}
-      .gen-card:hover{border-color:rgba(34,197,94,.4);box-shadow:0 0 28px rgba(34,197,94,.1);transform:translateY(-2px)}
-      .gen-card:hover::before{opacity:1}
-      .gen-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;border:1px solid rgba(255,255,255,.12)}.gen-icon img{width:100%;height:100%;object-fit:cover;display:block}
-      .gen-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:.625rem}
-      .gen-tag{display:inline-flex;align-items:center;background:rgba(245,158,11,.12);
-        border:1px solid rgba(245,158,11,.3);color:#f59e0b;border-radius:5px;
-        padding:.2rem .625rem;font-size:.6rem;font-weight:700;letter-spacing:.07em;
-        text-transform:uppercase;align-self:flex-start}
-      .gen-name{font-size:1rem;font-weight:800;color:var(--fg);letter-spacing:.04em;
-        text-transform:uppercase;line-height:1.2}
-      .gen-platform{font-size:.8125rem;color:var(--muted);font-weight:500}
-      .gen-access{display:flex;align-items:center;justify-content:center;gap:.5rem;
-        background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);
-        border-radius:9px;padding:.625rem 1rem;font-size:.8125rem;font-weight:700;
-        transition:all .2s;margin-top:.375rem}
-      .gen-access:hover{background:rgba(34,197,94,.2)}
+    .gen-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.25rem}
+    .gen-card{
+      background:var(--bg-card);border:2px solid var(--vibrant-green);border-radius:16px;
+      padding:1.75rem;display:flex;align-items:flex-start;gap:1.25rem;
+      text-decoration:none;transition:all var(--transition-fast);position:relative;overflow:hidden;
+      box-shadow:var(--shadow-md)
+    }
+    .gen-card::before{
+      content:'';position:absolute;inset:0;opacity:0;
+      background:radial-gradient(ellipse 80% 60% at 0% 50%,rgba(57,211,83,.1),transparent);
+      transition:opacity var(--transition-normal)
+    }
+    .gen-card:hover{
+      border-color:var(--primary-green);box-shadow:var(--shadow-lg);
+      transform:translateY(-4px)
+    }
+    .gen-card:hover::before{opacity:1}
+    .gen-icon{
+      width:52px;height:52px;border-radius:14px;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0;overflow:hidden;border:2px solid var(--vibrant-green)
+    }
+    .gen-icon img{width:100%;height:100%;object-fit:cover;display:block}
+    .gen-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:.625rem}
+    .gen-tag{
+      display:inline-flex;align-items:center;background:rgba(245,158,11,.15);
+      border:1.5px solid var(--accent-amber);color:var(--accent-amber);border-radius:6px;
+      padding:.3rem .625rem;font-size:.6rem;font-weight:700;letter-spacing:.07em;
+      text-transform:uppercase;align-self:flex-start;font-family:'Poppins',sans-serif
+    }
+    .gen-name{
+      font-size:1rem;font-weight:800;color:var(--primary-green);letter-spacing:.04em;
+      text-transform:uppercase;line-height:1.2;font-family:'Poppins',sans-serif
+    }
+    .gen-platform{font-size:.8125rem;color:var(--text-secondary);font-weight:500}
+    .gen-access{
+      display:flex;align-items:center;justify-content:center;gap:.5rem;
+      background:rgba(57,211,83,.12);color:var(--vibrant-green);border:1.5px solid var(--vibrant-green);
+      border-radius:9px;padding:.625rem 1rem;font-size:.8125rem;font-weight:700;
+      transition:all var(--transition-fast);margin-top:.375rem;font-family:'Poppins',sans-serif
+    }
+    .gen-access:hover{background:rgba(57,211,83,.22);transform:scale(1.02)}
 
-      /* Extension note */
-    .ext-note{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);
-      border-radius:10px;padding:1rem 1.25rem;margin:1.25rem 0}
-    .ext-note-title{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-      color:#f59e0b;margin-bottom:.375rem}
-    .ext-note p{font-size:.875rem;color:var(--muted);line-height:1.55}
-    .ext-note span{color:var(--fg);font-weight:600}
-    .ext-steps{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
-      border-radius:10px;padding:1.25rem;margin-top:1rem}
-    .ext-steps-title{font-size:.8125rem;font-weight:700;text-transform:uppercase;
-      letter-spacing:.05em;color:var(--fg);margin-bottom:.875rem}
-    .ext-step{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.625rem;
-      font-size:.875rem;color:var(--muted);line-height:1.5}
+    /* Extension note */
+    .ext-note{
+      background:rgba(245,158,11,.1);border:1.5px solid var(--accent-amber);
+      border-radius:10px;padding:1rem 1.25rem;margin:1.25rem 0
+    }
+    .ext-note-title{
+      font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      color:var(--accent-amber);margin-bottom:.375rem;font-family:'Poppins',sans-serif
+    }
+    .ext-note p{font-size:.875rem;color:var(--text-secondary);line-height:1.55}
+    .ext-note span{color:var(--primary-green);font-weight:600}
+    .ext-steps{
+      background:rgba(57,211,83,.06);border:1.5px solid rgba(57,211,83,.2);
+      border-radius:10px;padding:1.25rem;margin-top:1rem
+    }
+    .ext-steps-title{
+      font-size:.8125rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.05em;color:var(--primary-green);margin-bottom:.875rem;font-family:'Poppins',sans-serif
+    }
+    .ext-step{
+      display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.625rem;
+      font-size:.875rem;color:var(--text-secondary);line-height:1.5
+    }
     .ext-step:last-child{margin-bottom:0}
-    .step-num{width:20px;height:20px;border-radius:50%;background:var(--green-dim);
-      color:var(--green);font-size:.6875rem;font-weight:800;display:flex;align-items:center;
-      justify-content:center;flex-shrink:0;margin-top:.1rem}
-    .ext-dl{display:inline-flex;align-items:center;gap:.75rem;
-      background:var(--green-dim);border:1px solid var(--green-border);
+    .step-num{
+      width:24px;height:24px;border-radius:50%;background:var(--vibrant-green);
+      color:#fff;font-size:.6875rem;font-weight:800;display:flex;align-items:center;
+      justify-content:center;flex-shrink:0;margin-top:.1rem;font-family:'Poppins',sans-serif
+    }
+    .ext-dl{
+      display:inline-flex;align-items:center;gap:.75rem;
+      background:rgba(57,211,83,.12);border:1.5px solid var(--vibrant-green);
       border-radius:10px;padding:.75rem 1.25rem;text-decoration:none;
-      color:var(--fg);transition:all .2s;margin-top:1.25rem}
-    .ext-dl:hover{background:rgba(34,197,94,.18);color:var(--green)}
+      color:var(--primary-green);transition:all var(--transition-fast);margin-top:1.25rem;
+      font-family:'Poppins',sans-serif;font-weight:700
+    }
+    .ext-dl:hover{background:rgba(57,211,83,.22);color:var(--vibrant-green);transform:translateY(-2px)}
     .ext-dl-info{text-align:left}
-    .ext-dl-name{font-size:.9375rem;font-weight:700;text-transform:uppercase;
-      letter-spacing:.04em;line-height:1}
-    .ext-dl-sub{font-size:.75rem;color:var(--muted);margin-top:.2rem}
+    .ext-dl-name{
+      font-size:.9375rem;font-weight:700;text-transform:uppercase;
+      letter-spacing:.04em;line-height:1;font-family:'Poppins',sans-serif
+    }
+    .ext-dl-sub{font-size:.75rem;color:var(--text-secondary);margin-top:.2rem}
 
     /* Refresher card */
-    .refresher-card{background:var(--card);border:1px solid var(--green-border);
-      border-radius:16px;padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;flex-wrap:wrap}
-    .refresher-icon{width:56px;height:56px;border-radius:14px;background:var(--green-dim);
-      border:1px solid var(--green-border);display:flex;align-items:center;
-      justify-content:center;color:var(--green);flex-shrink:0}
+    .refresher-card{
+      background:var(--bg-card);border:2px solid var(--vibrant-green);
+      border-radius:16px;padding:2rem;display:flex;align-items:flex-start;gap:1.5rem;
+      flex-wrap:wrap;box-shadow:var(--shadow-md);
+      transition:all var(--transition-fast)
+    }
+    .refresher-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+    .refresher-icon{
+      width:56px;height:56px;border-radius:14px;background:rgba(57,211,83,.12);
+      border:2px solid var(--vibrant-green);display:flex;align-items:center;
+      justify-content:center;color:var(--vibrant-green);flex-shrink:0
+    }
     .refresher-body{flex:1;min-width:200px}
-    .refresher-tag{display:inline-flex;align-items:center;background:var(--green-dim);
-      border:1px solid var(--green-border);color:var(--green);border-radius:5px;
-      padding:.2rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;
-      text-transform:uppercase;margin-bottom:.625rem}
-    .refresher-name{font-size:1.25rem;font-weight:800;color:var(--fg);
-      text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem}
-    .refresher-desc{font-size:.9375rem;color:var(--muted);line-height:1.65;margin-bottom:1.25rem}
+    .refresher-tag{
+      display:inline-flex;align-items:center;background:rgba(57,211,83,.12);
+      border:1.5px solid var(--vibrant-green);color:var(--vibrant-green);border-radius:6px;
+      padding:.3rem .75rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;
+      text-transform:uppercase;margin-bottom:.625rem;font-family:'Poppins',sans-serif
+    }
+    .refresher-name{
+      font-size:1.25rem;font-weight:800;color:var(--primary-green);
+      text-transform:uppercase;letter-spacing:.04em;margin-bottom:.5rem;font-family:'Poppins',sans-serif
+    }
+    .refresher-desc{font-size:.9375rem;color:var(--text-secondary);line-height:1.65;margin-bottom:1.25rem}
 
     /* Banner */
-    .banner-wrap{border:1px solid var(--green-border);border-radius:14px;overflow:hidden;margin-bottom:3rem}
+    .banner-wrap{border:2px solid var(--vibrant-green);border-radius:14px;overflow:hidden;margin-bottom:3rem;box-shadow:var(--shadow-md)}
     .banner-wrap img{width:100%;display:block}
 
     /* Footer */
-    .footer{border-top:1px solid rgba(255,255,255,.05);padding:2.5rem 1.5rem;text-align:center}
-    .footer p{color:var(--muted);font-size:.8125rem}
-    .footer strong{color:var(--green)}
+    .footer{
+      border-top:2px solid var(--vibrant-green);padding:2.5rem 1.5rem;text-align:center;
+      background:rgba(57,211,83,.03)
+    }
+    .footer p{color:var(--text-secondary);font-size:.8125rem}
+    .footer strong{color:var(--primary-green);font-family:'Poppins',sans-serif}
 
     /* Scrollbar */
-    ::-webkit-scrollbar{width:5px}
-    ::-webkit-scrollbar-track{background:#000}
-    ::-webkit-scrollbar-thumb{background:rgba(34,197,94,.2);border-radius:4px}
-    ::-webkit-scrollbar-thumb:hover{background:rgba(34,197,94,.4)}
-    ::selection{background:rgba(34,197,94,.25);color:#fff}
+    ::-webkit-scrollbar{width:8px}
+    ::-webkit-scrollbar-track{background:var(--bg-light)}
+    ::-webkit-scrollbar-thumb{background:var(--vibrant-green);border-radius:4px}
+    ::-webkit-scrollbar-thumb:hover{background:var(--primary-green)}
+    ::selection{background:rgba(57,211,83,.3);color:var(--primary-green)}
 
     @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes slideIn{from{width:0}to{width:100%}}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+    
     .fade-in{animation:fadeUp .32s ease both}
     svg{flex-shrink:0}
-  
-      .refresher-link{display:inline-flex;align-items:center;gap:.625rem;
-        background:var(--green-dim);color:var(--green);border:1px solid var(--green-border);
-        border-radius:8px;padding:.625rem 1.25rem;font-size:.875rem;font-weight:700;
-        text-decoration:none;transition:all .2s;margin-top:.25rem}
-      .refresher-link:hover{background:rgba(34,197,94,.18)}
+      
+    .refresher-link{
+      display:inline-flex;align-items:center;gap:.625rem;
+      background:rgba(57,211,83,.12);color:var(--vibrant-green);border:1.5px solid var(--vibrant-green);
+      border-radius:8px;padding:.625rem 1.25rem;font-size:.875rem;font-weight:700;
+      text-decoration:none;transition:all var(--transition-fast);margin-top:.25rem;
+      font-family:'Poppins',sans-serif
+    }
+    .refresher-link:hover{background:rgba(57,211,83,.22);transform:translateY(-2px)}
   </style>
 </head>
 <body>
-
-<div id="glow"></div>
-<div id="noise"></div>
-
-<!-- NAVBAR -->
-<nav id="navbar">
-  <div class="nb">
-    <a class="logo" onclick="navigate('/tutoriais')">
-        <img src="/logo-brazino.jpg" alt="Brazino 777" class="logo-img"/>
-        <span class="logo-text">BRAZINO BEAMING</span>
-      </a>
-
-    <div class="nav-links">
-      <a class="nav-link" data-route="/tutoriais"  onclick="navigate('/tutoriais')">Tutoriais</a>
-      <a class="nav-link" data-route="/metodos"    onclick="navigate('/metodos')">Métodos</a>
-      <a class="nav-link" data-route="/geradores"  onclick="navigate('/geradores')">Geradores</a>
-      <a class="nav-link" data-route="/bypassers"  onclick="navigate('/bypassers')">Bypassers</a>
-      <a class="nav-link" data-route="/refreshers" onclick="navigate('/refreshers')">Refreshers</a>
-    </div>
-
-    <a class="nav-cta" href="https://discord.gg/PPhFNQA74h" target="_blank" rel="noopener">
-      Entrar no Discord
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-    </a>
-
-    <button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- MOBILE MENU -->
-<div id="mobile-menu">
-  <a class="mob-link" data-route="/tutoriais"  onclick="navigate('/tutoriais');closeMenu()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
-    Tutoriais
-  </a>
-  <a class="mob-link" data-route="/metodos"    onclick="navigate('/metodos');closeMenu()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    Métodos
-  </a>
-  <a class="mob-link" data-route="/geradores"  onclick="navigate('/geradores');closeMenu()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-    Geradores
-  </a>
-  <a class="mob-link" data-route="/bypassers"  onclick="navigate('/bypassers');closeMenu()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    Bypassers
-  </a>
-  <a class="mob-link" data-route="/refreshers" onclick="navigate('/refreshers');closeMenu()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-    Refreshers
-  </a>
-  <a class="mob-cta" href="https://discord.gg/PPhFNQA74h" target="_blank" rel="noopener" onclick="closeMenu()">Entrar no Discord →</a>
-</div>
 
 <!-- APP -->
 <div id="app"></div>
@@ -336,7 +440,7 @@ var ICO = {
   wrench:  '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
   shield:  '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
   refresh: '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>',
-  check:   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  check:   '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#39D353" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
   monitor: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>',
   phone:   '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>',
   copy:    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>',
@@ -345,6 +449,55 @@ var ICO = {
   dl:      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
   arr:     '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>',
 };
+
+// ── Navbar ──
+function navbar() {
+  return '<nav id="navbar">' +
+    '<div class="nb">' +
+      '<a class="logo" onclick="navigate(\'/tutoriais\')">' +
+        '<img src="/logo-brazino.jpg" alt="Brazino 777" class="logo-img"/>' +
+        '<span class="logo-text">BRAZINO BEAMING</span>' +
+      '</a>' +
+      '<div class="nav-links">' +
+        '<a class="nav-link" data-route="/tutoriais" onclick="navigate(\'/tutoriais\')">Tutoriais</a>' +
+        '<a class="nav-link" data-route="/metodos" onclick="navigate(\'/metodos\')">Métodos</a>' +
+        '<a class="nav-link" data-route="/geradores" onclick="navigate(\'/geradores\')">Geradores</a>' +
+        '<a class="nav-link" data-route="/bypassers" onclick="navigate(\'/bypassers\')">Bypassers</a>' +
+        '<a class="nav-link" data-route="/refreshers" onclick="navigate(\'/refreshers\')">Refreshers</a>' +
+      '</div>' +
+      '<a class="nav-cta" href="https://discord.gg/PPhFNQA74h" target="_blank" rel="noopener">' +
+        'Entrar no Discord ' +
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>' +
+      '</a>' +
+      '<button class="hamburger" id="ham" onclick="toggleMenu()" aria-label="Menu">' +
+        '<span></span><span></span><span></span>' +
+      '</button>' +
+    '</div>' +
+  '</nav>' +
+  '<div id="mobile-menu">' +
+    '<a class="mob-link" data-route="/tutoriais" onclick="navigate(\'/tutoriais\');closeMenu()">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>' +
+      'Tutoriais' +
+    '</a>' +
+    '<a class="mob-link" data-route="/metodos" onclick="navigate(\'/metodos\');closeMenu()">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>' +
+      'Métodos' +
+    '</a>' +
+    '<a class="mob-link" data-route="/geradores" onclick="navigate(\'/geradores\');closeMenu()">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>' +
+      'Geradores' +
+    '</a>' +
+    '<a class="mob-link" data-route="/bypassers" onclick="navigate(\'/bypassers\');closeMenu()">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+      'Bypassers' +
+    '</a>' +
+    '<a class="mob-link" data-route="/refreshers" onclick="navigate(\'/refreshers\');closeMenu()">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>' +
+      'Refreshers' +
+    '</a>' +
+    '<a class="mob-cta" href="https://discord.gg/PPhFNQA74h" target="_blank" rel="noopener" onclick="closeMenu()">Entrar no Discord →</a>' +
+  '</div>';
+}
 
 // ── Helpers ──
 function pgHead(iconKey, title, subtitle) {
@@ -380,9 +533,9 @@ function vidWithDesc(src, tutNum, tutLabel, h3, desc, extra) {
 // ── TUTORIAIS ──
 // Link Falso tabs data
 var LINK_FALSO_TABS = [
-  {label:'Servidor Privado', src:'/link-servidor-privado.mp4', desc:'Como criar um link falso simulando um Servidor Privado do Roblox. Ideal para atrair jogadores que buscam acesso exclusivo a servidores pagos.'},
-  {label:'Grupo',            src:'/link-grupo.mp4',            desc:'Como criar um link falso de Grupo do Roblox. Perfeito para quem quer enganar com promessa de rewards ou acesso a grupos exclusivos.'},
-  {label:'Perfil',           src:'/link-perfil.mp4',           desc:'Como criar um link falso de Perfil do Roblox. Muito usado para imitar perfis famosos ou de amigos e gerar mais confiança no alvo.'},
+  {label:'Servidor Privado', src:'/link-servidor-privado.mp4', desc:'Aprenda a criar um link falso que simula um Servidor Privado do Roblox. Perfeito para atrair jogadores que buscam acesso exclusivo a servidores premium e conteúdo restrito.'},
+  {label:'Grupo',            src:'/link-grupo.mp4',            desc:'Domine a técnica de criar links falsos de Grupos do Roblox. Ideal para enganar com promessas de rewards, acesso a grupos VIP e benefícios exclusivos.'},
+  {label:'Perfil',           src:'/link-perfil.mp4',           desc:'Crie links falsos de Perfis do Roblox com precisão. Muito efetivo para imitar perfis famosos, streamers ou amigos próximos e ganhar confiança do alvo.'},
 ];
 var linkFalsoActive = 0;
 
@@ -438,22 +591,22 @@ function copyModelo(i) {
     setTimeout(function() {
       btn.classList.remove('copied');
       btn.innerHTML = ICO.copy + ' Copiar';
-    }, 2000);
+    }, 1500);
   });
 }
 
 function pageTutoriais() {
   var encurtarExtra = '<a href="https://abre.ai" target="_blank" rel="noopener" class="link-btn" style="margin-top:1rem">' +
-    ICO.link + '<span>Abre.ai — Encurtador</span>' + ICO.arr + '</a>';
+    ICO.link + '<span>Abre.ai — Encurtador de Links</span>' + ICO.arr + '</a>';
 
-  return pgHead('play', 'TUTORIAIS', 'Guias em vídeo e passo a passo ensinando tudo sobre o Beam e como gerar links falsos de Roblox.') +
+  return pgHead('play', 'TUTORIAIS', 'Guias em vídeo passo a passo ensinando tudo sobre o Beam e como criar links falsos de Roblox com eficiência.') +
     '<div class="content"><div class="divider"></div>' +
 
     '<div class="sec-item fade-in">' +
       secHead(1, 'Webhook') +
       vidWithDesc('/webhook-tutorial.mp4', 'Tutorial 01', 'Webhook',
         'Webhook — Como as Informações são Enviadas',
-        'Entenda o que é um Webhook e como ele é usado no Beam para receber as informações das vítimas em tempo real. Base essencial para dominar o Beam.') +
+        'Entenda completamente o que é um Webhook e como ele funciona no Beam para receber as informações das vítimas em tempo real. Base essencial para dominar todas as técnicas.') +
     '</div>' +
 
     '<div class="sec-item fade-in">' +
@@ -465,15 +618,15 @@ function pageTutoriais() {
       secHead(3, 'Encurtar Link') +
       vidWithDesc('/encurtar-link.mp4', 'Tutorial 03', 'Encurtador',
         'Encurtar Link Falso',
-        'Aprenda a encurtar seu link falso do Beam para deixá-lo mais discreto e convincente. Use o site abaixo para encurtar seus links.',
+        'Aprenda a encurtar seus links falsos do Beam para deixá-los mais discretos e convincentes. Use a ferramenta recomendada para criar URLs profissionais.',
         encurtarExtra) +
     '</div>' +
 
     '<div class="sec-item fade-in">' +
       secHead(4, 'Esconder Link') +
       vidWithDesc('/disfarcar-link.mp4', 'Tutorial 04', 'Disfarce',
-        'Disfarçar Link',
-        'Aprenda a disfarçar o seu link do Beam com uma URL falsa do Roblox. Clique em "Copiar" no modelo desejado, substitua <strong style="color:#22c55e">SEU LINK</strong> pelo seu link do Beam e envie para o alvo.',
+        'Disfarçar Link com URL Falsa',
+        'Aprenda a disfarçar o seu link do Beam com uma URL falsa do Roblox. Clique em "Copiar" no modelo desejado, substitua <strong style="color:#39D353">SEU LINK</strong> pelo seu link do Beam e envie para o alvo.',
         modelosHtml()) +
     '</div>' +
 
@@ -482,8 +635,8 @@ function pageTutoriais() {
 
 // ── MÉTODOS ──
 var COOKIE_TABS = [
-  {label:'PC',     icon: ICO.monitor, src:'/metodo-cookie-pc.mp4',     desc:'Tutorial no PC mostrando como usar o método Cookie com a extensão Brazino.'},
-  {label:'Celular',icon: ICO.phone,   src:'/metodo-cookie-celular.mp4', desc:'Tutorial no celular com a versão atualizada da extensão Brazino.'},
+  {label:'PC',     icon: ICO.monitor, src:'/metodo-cookie-pc.mp4',     desc:'Tutorial completo no PC mostrando como usar o método Cookie com a extensão Brazino atualizada.'},
+  {label:'Celular',icon: ICO.phone,   src:'/metodo-cookie-celular.mp4', desc:'Tutorial no celular com a versão mais recente da extensão Brazino com todas as melhorias.'},
 ];
 var cookieActive = 0;
 
@@ -495,7 +648,7 @@ function cookieCard() {
   var extSection =
     '<div class="ext-note">' +
       '<div class="ext-note-title">Extensão Atualizada</div>' +
-      '<p>O tutorial do PC mostra a extensão <span>EditThisCookie</span>, mas ela foi substituída pela extensão <span style="color:#22c55e">Brazino</span>. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</p>' +
+      '<p>O tutorial do PC mostra a extensão <span>EditThisCookie</span>, mas ela foi substituída pela extensão <span style="color:#39D353">Brazino</span>. Use o arquivo abaixo no lugar dela. O funcionamento é idêntico.</p>' +
     '</div>' +
     '<div class="ext-steps">' +
       '<div class="ext-steps-title">Como instalar a extensão no Chrome</div>' +
@@ -538,7 +691,7 @@ function switchCookie(i) {
 }
 
 function pageMetodos() {
-  return pgHead('bolt', 'MÉTODOS', 'Diferentes abordagens e estratégias para usar o Beam com eficiência e alcançar mais pessoas.') +
+  return pgHead('bolt', 'MÉTODOS', 'Diferentes abordagens e estratégias avançadas para usar o Beam com máxima eficiência e alcance.') +
     '<div class="content"><div class="divider"></div>' +
 
     '<div class="sec-item fade-in">' +
@@ -549,22 +702,22 @@ function pageMetodos() {
     '<div class="sec-item fade-in">' +
       secHead(2, 'Autenticador') +
       vidWithDesc('/autenticador.mp4', 'Método 02', 'Autenticador',
-        'Autenticador',
-        'Este método pode ser usado de duas formas: adicionar na conta caso ela não tenha autenticador para aumentar a segurança e evitar recuperação, e também o <strong style="color:#f9fafb">key authenticador</strong> que chega logo após a hit.') +
+        'Autenticador — Segurança Adicional',
+        'Este método pode ser usado de duas formas: adicionar autenticador em contas para aumentar a segurança e evitar recuperação, e também extrair a <strong style="color:#39D353">key authenticador</strong> que chega junto com a hit.') +
     '</div>' +
 
     '<div class="sec-item fade-in">' +
       secHead(3, 'Bypass') +
       vidWithDesc('/bypass.mp4', 'Método 03', 'Bypass',
-        'Bypass',
-        'Método utilizado para contornar sistemas de detecção e obter acesso às contas com maior eficiência.') +
+        'Bypass — Contornando Detecção',
+        'Método avançado utilizado para contornar sistemas de detecção de segurança e obter acesso às contas com máxima eficiência e discrição.') +
     '</div>' +
 
     '<div class="sec-item fade-in">' +
       secHead(4, 'Recovery / Código de Recuperação') +
       vidWithDesc('/recovery.mp4', 'Método 04', 'Recovery',
-        'Código de Recuperação',
-        'Assim como o <strong style="color:#f9fafb">Key Authenticador</strong>, os <strong style="color:#f9fafb">Recovery Codes</strong> também chegam junto com a hit. Eles funcionam como uma segunda forma de verificação e são exigidos ao realizar alterações na conta — como trocar o e-mail ou a senha.') +
+        'Código de Recuperação — Backup de Acesso',
+        'Assim como o <strong style="color:#39D353">Key Authenticador</strong>, os <strong style="color:#39D353">Recovery Codes</strong> também chegam junto com a hit. Eles funcionam como uma segunda forma de verificação e são essenciais para trocar e-mail ou senha.') +
     '</div>' +
 
     '</div>' + footer();
@@ -572,7 +725,7 @@ function pageMetodos() {
 
 // ── GERADORES ──
 var GERADORES = [
-    { name:'BRAZINO',          tag:'Painel 01', href:'https://app.beamse.pro/gen/Brazino',                        platform:'Beamse',           color:'#22c55e', img:'/icon-brazino.jpg' },
+    { name:'BRAZINO',          tag:'Painel 01', href:'https://app.beamse.pro/gen/Brazino',                        platform:'Beamse',           color:'#39D353', img:'/icon-brazino.jpg' },
     { name:'BRAZINO X SPLUNK', tag:'Painel 02', href:'https://app.beamers.si/u/Brazino',                          platform:'Beamers × Splunk', color:'#38bdf8', img:'/icon-splunk.png' },
     { name:'BRAZINO X INJURIES',tag:'Painel 03',href:'https://www.logged.tg/auth/brazino777',                     platform:'Logged × Injuries',color:'#f87171', img:'/icon-injuries.png' },
     { name:'BRAZINO X IMMORTAL',tag:'Painel 04',href:'https://immortal.st/?code=OTUzNDA3MjEwNjU0MDMzNTYyMQ==',   platform:'Immortal',         color:'#a78bfa', img:'/icon-immortal.png' },
@@ -580,7 +733,7 @@ var GERADORES = [
   ];
     
 function pageGeradores() {
-    var crown = '<svg width="15" height="15" viewBox="0 0 24 24" fill="#f59e0b" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L9.5 8.5 3 7l4 8H17l4-8-6.5 1.5L12 2z"/><rect x="6" y="16" width="12" height="2.5" rx="1" fill="#f59e0b"/></svg>';
+    var crown = '<svg width="15" height="15" viewBox="0 0 24 24" fill="#F59E0B" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L9.5 8.5 3 7l4 8H17l4-8-6.5 1.5L12 2z"/><rect x="6" y="16" width="12" height="2.5" rx="1" fill="#F59E0B"/></svg>';
     var cardsHtml = GERADORES.map(function(g) {
       return '<a class="gen-card" href="' + g.href + '" target="_blank" rel="noopener">' +
         '<div class="gen-icon"><img src="' + g.img + '" alt="' + g.name + '"></div>' +
@@ -593,7 +746,7 @@ function pageGeradores() {
       '</a>';
     }).join('');
 
-    return pgHead('wrench', 'GERADORES', 'Acesse os painéis do Beam para criar e gerenciar seus links falsos de Roblox.') +
+    return pgHead('wrench', 'GERADORES', 'Acesse os painéis do Beam para criar, gerenciar e monitorar seus links falsos de Roblox em tempo real.') +
       '<div class="content"><div class="divider"></div>' +
       '<div class="gen-grid fade-in">' + cardsHtml + '</div>' +
       '</div>' + footer();
@@ -622,14 +775,14 @@ function pageBypassers() {
         '<div class="refresher-body">' +
           '<span class="refresher-tag">Bypasser 01</span>' +
           '<div class="refresher-name">Bypass</div>' +
-          '<p class="refresher-desc">Ferramenta para contornar sistemas de detecção e obter acesso às contas com eficiência. Acesse o site abaixo para utilizar.</p>' +
+          '<p class="refresher-desc">Ferramenta profissional para contornar sistemas de detecção avançados e obter acesso às contas com máxima eficiência. Acesse o site abaixo para utilizar.</p>' +
           '<a href="https://rblxbypasser.com" target="_blank" rel="noopener" class="refresher-link">' +
             ICO.arr + '<span>Acessar rblxbypasser.com</span>' +
           '</a>' +
         '</div>' +
       '</div>';
 
-    return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas.') +
+    return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas com segurança.') +
       '<div class="content"><div class="divider"></div>' +
       '<div class="sec-item fade-in">' +
         '<p class="reqs-label">Requisitos</p>' +
@@ -655,14 +808,14 @@ function pageRefreshers() {
         '<div class="refresher-body">' +
           '<span class="refresher-tag">Refresher 01</span>' +
           '<div class="refresher-name">Refresher Cookie</div>' +
-          '<p class="refresher-desc">Ferramenta para renovar sessões e manter suas contas sempre ativas. Acesse o site abaixo para atualizar o cookie da conta e garantir acesso contínuo.</p>' +
+          '<p class="refresher-desc">Ferramenta essencial para renovar sessões e manter suas contas sempre ativas e operacionais. Acesse o site abaixo para atualizar o cookie e garantir acesso contínuo.</p>' +
           '<a href="https://www.logged.tg/tools/refresher" target="_blank" rel="noopener" class="refresher-link">' +
             ICO.arr + '<span>Acessar logged.tg/tools/refresher</span>' +
           '</a>' +
         '</div>' +
       '</div>';
 
-    return pgHead('refresh', 'REFRESHERS', 'Ferramentas exclusivas Brazino para renovar sessões e manter suas contas sempre ativas.') +
+    return pgHead('refresh', 'REFRESHERS', 'Ferramentas exclusivas Brazino para renovar sessões e manter suas contas sempre ativas e operacionais.') +
       '<div class="content"><div class="divider"></div>' +
       '<div class="sec-item">' +
         secHead(1, 'Refresher Cookie') +
@@ -695,8 +848,9 @@ window.addEventListener('popstate', function() {
 });
 
 function render(path) {
+  var app = document.getElementById('app');
   var fn = PAGES[path] || pageTutoriais;
-  document.getElementById('app').innerHTML = fn();
+  app.innerHTML = navbar() + fn();
   updateActive(path);
 }
 
