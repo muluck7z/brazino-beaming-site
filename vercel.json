@@ -1,4 +1,6 @@
 {
+  "installCommand": "echo skip",
+  "buildCommand": "echo skip",
   "outputDirectory": "artifacts/brazino-site/dist/public",
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
