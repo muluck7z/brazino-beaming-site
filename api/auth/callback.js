@@ -1,0 +1,85 @@
+const { makeJwt } = require("../_jwt");
+
+module.exports = async function handler(req, res) {
+  const CLIENT_ID = process.env.DISCORD_CLIENT_ID;
+  const CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
+  const GUILD_ID = process.env.DISCORD_GUILD_ID;
+  const ROLE_ID = process.env.DISCORD_ROLE_ID;
+  const SECRET = process.env.SESSION_SECRET || "fallback";
+
+  const code = req.query.code;
+  if (!code) {
+    res.redirect("/?error=missing_code");
+    return;
+  }
+
+  try {
+    const host = req.headers["x-forwarded-host"] || req.headers.host;
+    const proto = req.headers["x-forwarded-proto"] || "https";
+    const redirectUri = `${proto}://${host}/api/auth/callback`;
+
+    const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: CLIENT_ID,
+        client_secret: CLIENT_SECRET,
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: redirectUri,
+      }),
+    });
+
+    if (!tokenRes.ok) {
+      console.error("Token exchange failed:", tokenRes.status, await tokenRes.text());
+      res.redirect("/?error=auth_failed");
+      return;
+    }
+
+    const { access_token } = await tokenRes.json();
+
+    const userRes = await fetch("https://discord.com/api/users/@me", {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+
+    if (!userRes.ok) {
+      console.error("User fetch failed:", userRes.status);
+      res.redirect("/?error=auth_failed");
+      return;
+    }
+
+    const user = await userRes.json();
+
+    const memberRes = await fetch(
+      `https://discord.com/api/users/@me/guilds/${GUILD_ID}/member`,
+      { headers: { Authorization: `Bearer ${access_token}` } }
+    );
+
+    let hasAccess = false;
+    if (memberRes.ok) {
+      const member = await memberRes.json();
+      hasAccess = Array.isArray(member.roles) && member.roles.includes(ROLE_ID);
+    }
+
+    const jwt = makeJwt(
+      {
+        userId: user.id,
+        username: user.global_name || user.username,
+        avatar: user.avatar || null,
+        hasAccess,
+      },
+      SECRET
+    );
+
+    const maxAge = 7 * 24 * 3600;
+    res.setHeader(
+      "Set-Cookie",
+      `bb_session=${jwt}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}`
+    );
+
+    res.redirect(hasAccess ? "/" : "/?error=no_access");
+  } catch (err) {
+    console.error("Auth callback error:", err);
+    res.redirect("/?error=auth_failed");
+  }
+};
