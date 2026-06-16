@@ -3,6 +3,8 @@
   "buildCommand": "echo skip",
   "outputDirectory": "artifacts/brazino-site/dist/public",
   "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/Brazino.zip", "destination": "/Brazino.zip" },
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
