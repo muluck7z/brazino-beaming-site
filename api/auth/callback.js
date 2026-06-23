@@ -61,6 +61,16 @@ module.exports = async function handler(req, res) {
       hasAccess = Array.isArray(member.roles) && member.roles.includes(ROLE_ID);
     }
 
+
+    // Sync user to Replit API (best-effort)
+    if (process.env.BRAZINO_API_URL && process.env.BRAZINO_API_SECRET) {
+      fetch(`${process.env.BRAZINO_API_URL}/api/users/sync`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-secret': process.env.BRAZINO_API_SECRET },
+        body: JSON.stringify({ discordId: user.id, displayName: user.global_name || user.username, avatar: user.avatar || null }),
+      }).catch(function(e) { console.error(e.message); });
+    }
+
     const jwt = makeJwt(
       {
         userId: user.id,
