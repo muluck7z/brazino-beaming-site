@@ -5,6 +5,15 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Brazino Beaming</title>
+    <meta name="description" content="Brazino Beaming — Ferramentas exclusivas para beaming no Roblox: tutoriais, métodos, geradores, bypassers e refreshers."/>
+    <meta property="og:title" content="Brazino Beaming"/>
+    <meta property="og:description" content="Ferramentas exclusivas para beaming no Roblox: tutoriais, métodos, geradores, bypassers e refreshers."/>
+    <meta property="og:image" content="/opengraph.jpg"/>
+    <meta property="og:type" content="website"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="Brazino Beaming"/>
+    <meta name="twitter:description" content="Ferramentas exclusivas para beaming no Roblox: tutoriais, métodos, geradores, bypassers e refreshers."/>
+    <meta name="twitter:image" content="/opengraph.jpg"/>
   <link rel="icon" href="/favicon.png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
@@ -779,17 +788,38 @@ function pageBypassers() {
         '</div>' +
       '</div>';
 
-    return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas com segurança.') +
+    var bypass2Card =
+        '<div class="refresher-card fade-in">' +
+          '<div class="refresher-icon">' +
+            '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">' +
+              '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="refresher-body">' +
+            '<span class="refresher-tag">Bypasser 02</span>' +
+            '<div class="refresher-name">RBX Tools Bypass</div>' +
+            '<p class="refresher-desc">Segunda ferramenta de bypass exclusiva do Brazino para contornar sistemas de detecção com alta eficiência. Acesse o site abaixo para utilizar.</p>' +
+            '<a href="https://rbxtoolsbypass.x10.mx/b/brazino" target="_blank" rel="noopener" class="refresher-link">' +
+              ICO.arr + `<span>Acessar rbxtoolsbypass.x10.mx</span>` +
+            '</a>' +
+          '</div>' +
+        '</div>';
+
+      return pgHead('shield', 'BYPASSERS', 'Ferramentas exclusivas Brazino para contornar sistemas de detecção e obter acesso às contas com segurança.') +
       '<div class="content"><div class="divider"></div>' +
       '<div class="sec-item fade-in">' +
         '<p class="reqs-label">Requisitos</p>' +
         '<ul class="checklist">' + reqHtml + '</ul>' +
       '</div>' +
       '<div class="sec-item fade-in">' +
-        secHead(1, 'Bypass') +
-        bypassCard +
-      '</div>' +
-      '</div>' + footer();
+          secHead(1, 'Bypass') +
+          bypassCard +
+        '</div>' +
+        '<div class="sec-item fade-in">' +
+          secHead(2, 'RBX Tools Bypass') +
+          bypass2Card +
+        '</div>' +
+        '</div>' + footer();
   }
 
 // ── REFRESHERS ──
